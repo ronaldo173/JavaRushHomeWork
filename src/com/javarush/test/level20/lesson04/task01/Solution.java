@@ -9,6 +9,7 @@ import java.util.List;
 Сделайте так, чтобы сериализация класса Human была возможной
 */
 public class Solution {
+
     public static class Human implements Serializable {
         public String name;
         public List<Asset> assets = new ArrayList<>();

@@ -12,9 +12,22 @@ import java.util.Map;
 public class Solution implements Serializable {
 
     private Map<String, String> m = new HashMap<>();
+    public Map<String, String> getMap() {
+        return m;
+    }
+
+    public  Solution() { /////HERE WAS VOID!!! It's CONSTRUCTOR! ye baby
+        m.put("Mickey", "Mouse");
+        m.put("Mickey", "Mantle");
+        System.out.println("test");
+    }
+
+    public int size() {
+        return m.size();
+    }
 
     public static void main(String args[]) throws Exception {
-        FileOutputStream fileOutput = new FileOutputStream("your.file.name");
+        FileOutputStream fileOutput = new FileOutputStream("tempJRfiles\\temp.txt");
         ObjectOutputStream outputStream = new ObjectOutputStream(fileOutput);
 
         Solution solution = new Solution();
@@ -24,7 +37,7 @@ public class Solution implements Serializable {
         outputStream.close();
 
         //loading
-        FileInputStream fiStream = new FileInputStream("your.file.name");
+        FileInputStream fiStream = new FileInputStream("tempJRfiles\\temp.txt ");
         ObjectInputStream objectStream = new ObjectInputStream(fiStream);
 
         Solution loadedObject = (Solution) objectStream.readObject();
@@ -33,19 +46,13 @@ public class Solution implements Serializable {
         objectStream.close();
 
         //Attention!!
-        System.out.println(loadedObject.size());
+        System.out.println("solution size:" + solution.getMap().size());
+        System.out.println("loaded: " +loadedObject.getMap().size());
+        System.out.println("--");
+        for (Map.Entry<String, String> stringStringEntry : solution.getMap().entrySet()) {
+            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());
+        }
     }
 
-    public Map<String, String> getMap() {
-        return m;
-    }
 
-    public void Solution() {
-        m.put("Mickey", "Mouse");
-        m.put("Mickey", "Mantle");
-    }
-
-    public int size() {
-        return m.size();
-    }
 }

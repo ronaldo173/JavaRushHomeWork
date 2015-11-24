@@ -1,9 +1,6 @@
 package com.javarush.test.level20.lesson07.task05;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 /* Переопределение сериализации
 Сделайте так, чтобы после десериализации нить runner продолжила работать.
@@ -23,6 +20,14 @@ public class Solution implements Serializable, Runnable {
 
     public void run() {
         // do something here, does not matter
+//        for (int i = 0; i < 3; i++) {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            System.out.println(this.speed ++);
+//        }
     }
 
     /**
@@ -33,10 +38,35 @@ public class Solution implements Serializable, Runnable {
      * Теперь сериализация/десериализация пойдет по нашему сценарию :)
      */
     private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
+//        out.defaultWriteObject();
+        out.writeInt(speed);
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
+//        in.defaultReadObject();
+        this.speed = in.readInt();
+        runner = new Thread(this);
+        runner.start();
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        /*Solution solution = new Solution(150);
+        Solution solutionLoaded;
+        File file = new File("tempJRfiles\\temp20-5-5.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
+             FileInputStream fileInputStream = new FileInputStream(file);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+             ObjectInputStream obInStream = new ObjectInputStream(fileInputStream)
+        ) {
+            objectOutputStream.writeObject(solution);
+            solutionLoaded = (Solution) obInStream.readObject();
+        }
+//        System.out.println(solution.speed);
+//        System.out.println(solutionLoaded.speed);
+
+//        solutionLoaded.run();*/
     }
 }
