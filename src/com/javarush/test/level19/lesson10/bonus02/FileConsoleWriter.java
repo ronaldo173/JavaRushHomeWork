@@ -31,6 +31,7 @@ public class FileConsoleWriter extends FileWriter {
     public FileConsoleWriter(File file, boolean append) throws IOException {
         super(file, append);
     }
+
     public FileConsoleWriter(FileDescriptor fd) {
         super(fd);
     }

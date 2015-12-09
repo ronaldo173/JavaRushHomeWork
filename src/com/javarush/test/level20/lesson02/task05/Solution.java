@@ -85,12 +85,12 @@ public class Solution {
             //implement this method - реализуйте этот метод
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 if (reader.readLine().equals("yes")) {
-                    countStrings= Integer.parseInt(reader.readLine()) -1;
+                    countStrings = Integer.parseInt(reader.readLine()) - 1;
                     this.string1 = new String();
                 }
                 if (reader.readLine().equals("yes")) {
 //                    System.out.println(Integer.parseInt(reader.readLine()));
-                    countStrings= Integer.parseInt(reader.readLine()) -1;
+                    countStrings = Integer.parseInt(reader.readLine()) - 1;
                     this.string2 = new String();
                 }
             }

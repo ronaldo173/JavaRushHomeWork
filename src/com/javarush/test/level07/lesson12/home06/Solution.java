@@ -44,6 +44,7 @@ public class Solution {
         int age;
         Human father;
         Human mother;
+
         //напишите тут ваш код
         public Human(String name, boolean sex, int age, Human father, Human motther) {
             this.name = name;

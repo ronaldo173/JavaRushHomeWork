@@ -10,24 +10,6 @@ import java.io.*;
 Метод main не участвует в тестировании.
 */
 public class Solution {
-    public static class A {
-        protected String name = "A";
-
-        public A() {
-        }
-
-        public A(String name) {
-            this.name += name;
-        }
-    }
-
-    public static class B extends A implements Serializable {
-        public B(String name) {
-            super(name);
-            this.name += name;
-        }
-    }
-
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         File file = new File("tempJRfiles\\temp.txt");
         B bBefore = new B("beforeSerializ");
@@ -47,5 +29,23 @@ public class Solution {
         }
 
         System.out.println(bBefore.name + "----" + bAfter.name);
+    }
+
+    public static class A {
+        protected String name = "A";
+
+        public A() {
+        }
+
+        public A(String name) {
+            this.name += name;
+        }
+    }
+
+    public static class B extends A implements Serializable {
+        public B(String name) {
+            super(name);
+            this.name += name;
+        }
     }
 }

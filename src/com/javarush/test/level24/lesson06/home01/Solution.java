@@ -10,5 +10,6 @@ public class Solution {
         List<Pet> pet = Util.getPets();
         List<Sayable> pets = Util.convertPetToSayable(pet);
         Util.printDialog(pets);
+
     }
 }

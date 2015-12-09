@@ -15,7 +15,7 @@ public class Solution {
         new Solution("main").sout();
     }
 
-    private String getName() {
+    protected String getName() {
         return name;
     }
 

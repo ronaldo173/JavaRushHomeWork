@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Asset implements Serializable {
     private String name;
     private double price;
+
     public Asset(String name) {
         this.name = name;
     }

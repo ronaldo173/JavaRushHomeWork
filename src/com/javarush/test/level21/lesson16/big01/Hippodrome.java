@@ -49,7 +49,7 @@ public class Hippodrome {
         for (int i = 0; i < 100; i++) {
             move();
             print();
-            Thread.sleep(500);
+            Thread.sleep(100);
         }
         //printWinner();
     }

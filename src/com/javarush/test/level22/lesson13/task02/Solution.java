@@ -10,6 +10,7 @@ public class Solution {
     static String win1251TestString = "РќР°СЂСѓС€РµРЅРёРµ РєРѕРґРёСЂРѕРІРєРё РєРѕРЅСЃРѕР»Рё?"; //only for your testing
 
     public static void main(String[] args) throws IOException {
+//        System.out.println(new String (win1251TestString.getBytes("windows-1251"), "UTF-8"));
         String fileName1 = args[0], fileName2 = args[1];
         BufferedReader reader = new BufferedReader(new FileReader(fileName1));
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName2));

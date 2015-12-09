@@ -23,6 +23,7 @@ public class Solution implements Serializable {
     String string;
     transient private Date currentDate;
     transient private int temperature;
+
     public Solution(int temperature) {
         this.currentDate = new Date();
         this.temperature = temperature;

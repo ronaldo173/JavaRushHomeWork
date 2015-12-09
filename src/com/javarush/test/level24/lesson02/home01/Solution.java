@@ -7,10 +7,10 @@ package com.javarush.test.level24.lesson02.home01;
 4. Создайте исключение UnsupportedInterfaceMarkerException
 5. В методе testClass класса Util: если параметр == null, то выбросьте UnsupportedInterfaceMarkerException
 */
-//public class Solution {
-//    public static void main(String[] args) throws UnsupportedInterfaceMarkerException {
-//        SelfInterfaceMarkerImpl obj = new SelfInterfaceMarkerImpl();
-//        Util.testClass(obj);
-//    }
-//
-//}
+public class Solution {
+    public static void main(String[] args) throws UnsupportedInterfaceMarkerException {
+        SelfInterfaceMarkerImpl obj = new SelfInterfaceMarkerImpl();
+        Util.testClass(null);
+    }
+
+}

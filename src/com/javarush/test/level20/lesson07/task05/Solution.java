@@ -1,6 +1,9 @@
 package com.javarush.test.level20.lesson07.task05;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /* Переопределение сериализации
 Сделайте так, чтобы после десериализации нить runner продолжила работать.
@@ -16,6 +19,27 @@ public class Solution implements Serializable, Runnable {
         this.speed = speed;
         runner = new Thread(this);
         runner.start();
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        /*Solution solution = new Solution(150);
+        Solution solutionLoaded;
+        File file = new File("tempJRfiles\\temp20-5-5.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
+             FileInputStream fileInputStream = new FileInputStream(file);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+             ObjectInputStream obInStream = new ObjectInputStream(fileInputStream)
+        ) {
+            objectOutputStream.writeObject(solution);
+            solutionLoaded = (Solution) obInStream.readObject();
+        }
+//        System.out.println(solution.speed);
+//        System.out.println(solutionLoaded.speed);
+
+//        solutionLoaded.run();*/
     }
 
     public void run() {
@@ -47,26 +71,5 @@ public class Solution implements Serializable, Runnable {
         this.speed = in.readInt();
         runner = new Thread(this);
         runner.start();
-    }
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        /*Solution solution = new Solution(150);
-        Solution solutionLoaded;
-        File file = new File("tempJRfiles\\temp20-5-5.txt");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
-             FileInputStream fileInputStream = new FileInputStream(file);
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-             ObjectInputStream obInStream = new ObjectInputStream(fileInputStream)
-        ) {
-            objectOutputStream.writeObject(solution);
-            solutionLoaded = (Solution) obInStream.readObject();
-        }
-//        System.out.println(solution.speed);
-//        System.out.println(solutionLoaded.speed);
-
-//        solutionLoaded.run();*/
     }
 }

@@ -56,6 +56,11 @@ public class Solution {
     }
 
     public static class ClassWithStatic {
+        public static String staticString = "it's test static string";
+        public int i;
+        public int j;
+        //*******
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -77,22 +82,17 @@ public class Solution {
                     ", j=" + j +
                     '}' + "staticString: " + staticString;
         }
-        //*******
-
-        public static String staticString = "it's test static string";
-        public int i;
-        public int j;
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
             try (
                     PrintWriter writer = new PrintWriter(outputStream)
             ) {
-                String hasStaticString = (staticString!=null) ? "yes":"no";
+                String hasStaticString = (staticString != null) ? "yes" : "no";
                 writer.println(hasStaticString);
-                if(hasStaticString.equals("yes")){
+                if (hasStaticString.equals("yes")) {
                     writer.println(staticString);
-                }else {
+                } else {
                     writer.println("");
                 }
                 writer.println(i);
@@ -102,20 +102,20 @@ public class Solution {
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            try(
-                    BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream))
-                    ){
+            try (
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))
+            ) {
                 String s;
-                List<String > list = new ArrayList<>();
-                while( (s=reader.readLine()) !=null){
+                List<String> list = new ArrayList<>();
+                while ((s = reader.readLine()) != null) {
                     list.add(s);
                 }
-                String firstString=list.get(0);
-                if(firstString.equals("yes")){
-                    staticString=list.get(1);
-                }else staticString=null;
-                i= Integer.parseInt(list.get(2));
-                j= Integer.parseInt(list.get(3));
+                String firstString = list.get(0);
+                if (firstString.equals("yes")) {
+                    staticString = list.get(1);
+                } else staticString = null;
+                i = Integer.parseInt(list.get(2));
+                j = Integer.parseInt(list.get(3));
             }
         }
     }

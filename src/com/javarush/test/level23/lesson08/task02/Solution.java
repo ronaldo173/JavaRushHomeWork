@@ -47,7 +47,7 @@ public class Solution {
             private void someActions() throws InterruptedException {
                 eat();
                 play();
-                sleep(1000);
+                Solution.this.sleep(1000);
             }
         };
         thread.start();
