@@ -32,7 +32,8 @@ public class Solution {
         String[] filepart = {"closed {4}", "open {2} and last {3}"};
 
         ChoiceFormat fileform = new ChoiceFormat(filelimits, filepart);
-        Format[] testFormats = {null, dateFormat, fileform};
+//        Format[] testFormats = {null, dateFormat, fileform};
+        Format[] testFormats = {null, null, dateFormat, fileform};
         MessageFormat pattform = new MessageFormat("{0}   {1} | {5} {6}");
         pattform.setFormats(testFormats);
 
@@ -51,7 +52,43 @@ public class Solution {
     public static void sort(List<Stock> list) {
         Collections.sort(list, new Comparator<Stock>() {
             public int compare(Stock stock1, Stock stock2) {
-                return 0;
+
+//                int nameSort = ((String)stock1.get("name")).compareTo((String)stock2.get("name"));
+                int nameSort = (stock1.get("name").toString()).compareTo((stock2.get("name").toString()));
+
+                if (nameSort != 0) {
+//                    System.out.println(nameSort + "__"  +stock1.get("name"));
+                    return nameSort;
+                } else {
+
+                    int dateSort = ((Date) stock1.get("date")).compareTo((Date) stock2.get("date"));
+                    if (dateSort != 0) {
+                        return dateSort;
+                    } else {
+                        double dif1, dif2;
+                        if (stock1.containsKey("change")) {
+                            dif1 = (double) stock1.get("change");
+                        } else {
+                            dif1 = (double) stock1.get("last") - (double) stock1.get("open");
+                        }
+                        if (stock2.containsKey("change")) {
+                            dif2 = (double) stock2.get("change");
+                        } else {
+                            dif2 = (double) stock2.get("last") - (double) stock2.get("open");
+                        }
+
+                        int incomeSort = 0;
+                        incomeSort = dif1 > dif2 ? -1 : 1;
+                        System.out.println(dif1 + " ... " + dif2 + " ..." + incomeSort);
+
+//                        Double difDouble1 = dif1;
+//                        Double difDouble2 = dif2;
+//                        int incomeSortDouble = difDouble1.compareTo(difDouble2);
+//                        System.out.println(difDouble1 + " ... " + difDouble2 + " ..." + incomeSortDouble);
+
+                        return incomeSort;
+                    }
+                }
             }
         });
     }
@@ -60,15 +97,17 @@ public class Solution {
         List<Stock> stocks = new ArrayList();
 
         stocks.add(new Stock("Fake Apple Inc.", "AAPL", 125.64, 123.43));
+        stocks.add(new Stock("Fake Apple Inc.", "AAPL", 125.64, 123.40));
         stocks.add(new Stock("Fake Cisco Systems, Inc.", "CSCO", 25.84, 26.3));
         stocks.add(new Stock("Fake Google Inc.", "GOOG", 516.2, 512.6));
         stocks.add(new Stock("Fake Intel Corporation", "INTC", 21.36, 21.53));
         stocks.add(new Stock("Fake Level 3 Communications, Inc.", "LVLT", 5.55, 5.54));
-        stocks.add(new Stock("Fake Microsoft Corporation", "MSFT", 29.56, 29.72));
+        stocks.add(new Stock("Fake Level 3 Communications, Inc.", "MSFT", 29.56, 29.72));
 
         stocks.add(new Stock("Fake Nokia Corporation (ADR)", "NOK", .1, getRandomDate()));
-        stocks.add(new Stock("Fake Oracle Corporation", "ORCL", .15, getRandomDate()));
-        stocks.add(new Stock("Fake Starbucks Corporation", "SBUX", .03, getRandomDate()));
+        stocks.add(new Stock("Fake Nokia Corporation (ADR)", "ORCL", .15, new Date()));
+        stocks.add(new Stock("Fake Nokia Corporation (ADR)", "ORCL", .18, new Date()));
+        stocks.add(new Stock("Fake Nokia Corporation (ADR)", "SBUX", .03, new Date()));
         stocks.add(new Stock("Fake Yahoo! Inc.", "YHOO", .32, getRandomDate()));
         stocks.add(new Stock("Fake Applied Materials, Inc.", "AMAT", .26, getRandomDate()));
         stocks.add(new Stock("Fake Comcast Corporation", "CMCSA", .5, getRandomDate()));
@@ -95,7 +134,7 @@ public class Solution {
             put("symbol", symbol);
             put("open", open);
             put("last", last);
-            put("date", getRandomDate(2020));
+            put("date", getRandomDate(2010));
         }
 
         public Stock(String name, String symbol, double change, Date date) {
