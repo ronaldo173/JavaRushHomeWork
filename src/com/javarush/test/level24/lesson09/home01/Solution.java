@@ -23,16 +23,31 @@ public class Solution {
     }
 
     public Iterator getIterator(final String name) {
-        class LocalIterator implements Iterator {
-            public LocalIterator() {
-                countItems++;
-                System.out.println(name + " item " + countItems);
+//        class LocalIterator implements Iterator {
+//            public LocalIterator() {
+//                countItems++;
+//                System.out.println(name + " item " + countItems);
+//            }
+//
+//            public Iterator next() {
+//                return new LocalIterator();
+//            }
+//        }
+//        return new LocalIterator();
+
+        return new Iterator() {
+            @Override
+            public Iterator next() {
+                return getIterator(name);
             }
 
-            public Iterator next() {
-                return new LocalIterator();
+            String iteratorName;
+            {
+                iteratorName = name;
+                countItems++;
+                System.out.println(iteratorName + " item " + countItems);
             }
-        }
-        return new LocalIterator();
+
+        };
     }
 }
