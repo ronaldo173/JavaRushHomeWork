@@ -12,8 +12,22 @@ public class Solution {
         }
 
         public void run() {
+//            Thread.yield();
             System.out.println("begin-" + index);
+            Thread.yield();
             System.out.println("end-" + index);
+//            Thread.yield();
+        }
+    }
+}
+
+class test {
+    public static void main(String[] args) {
+
+        Thread thread;
+        for (int i = 0; i < 10; i++) {
+            thread = new Thread(new Solution.YieldRunnable(i));
+            thread.start();
         }
     }
 }

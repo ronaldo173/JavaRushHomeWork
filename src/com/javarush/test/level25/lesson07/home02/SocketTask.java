@@ -1,5 +1,6 @@
 package com.javarush.test.level25.lesson07.home02;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
@@ -13,6 +14,11 @@ public abstract class SocketTask<T> implements CancellableTask<T> {
 
     public synchronized void cancel() {
         //close all resources here
+        try {
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public RunnableFuture<T> newTask() {
@@ -20,7 +26,15 @@ public abstract class SocketTask<T> implements CancellableTask<T> {
             public boolean cancel(boolean mayInterruptIfRunning) {
                 //close all resources here by using proper SocketTask method
                 //call super-class method in finally block
-                return false;
+
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    super.cancel(mayInterruptIfRunning);
+                }
+                return true;
             }
         };
     }

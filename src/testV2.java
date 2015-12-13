@@ -24,6 +24,7 @@ class parent {
 
 class Child extends parent {
     int id = 1;
+
     public int getId() {
         return id;
     }

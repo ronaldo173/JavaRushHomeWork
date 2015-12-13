@@ -17,15 +17,15 @@ public class TestInnerCompileInto {
     }
 
     static class NestedClassStatic {
-        public NestedClassStatic(){
+        public NestedClassStatic() {
             System.out.println("Nested static compiled: TestInnerCompileInto$NestedClassStatic.class");
         }
 
 
     }
 
-    class InnerNonStatic{
-        public InnerNonStatic(){
+    class InnerNonStatic {
+        public InnerNonStatic() {
             System.out.println("Inner non static compiled into: TestInnerCompileInto$InnerNonStatic.class");
             new Thread(new Runnable() {
                 @Override

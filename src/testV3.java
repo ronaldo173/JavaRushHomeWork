@@ -6,27 +6,30 @@ import java.lang.reflect.Modifier;
  */
 public class testV3 {
     public static void main(String[] args) {
-            getMethods(new SomeClassWithXzMethods());
+        getMethods(new SomeClassWithXzMethods());
     }
 
-    static void getMethods(Object object){
+    static void getMethods(Object object) {
         Class clazz = object.getClass();
         Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
             System.out.println(Modifier.toString(method.getModifiers()) + " " +
-            method.getName());
+                    method.getName());
             System.out.println(method.getReturnType());
         }
     }
 
-    static class SomeClassWithXzMethods{
-        private void firstPRivate(){
+    static class SomeClassWithXzMethods {
+        private void firstPRivate() {
             System.out.println("firstPRivate");
         }
-        public void getSecond(){
+
+        public void getSecond() {
             System.out.println("2");
         }
-        protected void thirdProtected(){}
+
+        protected void thirdProtected() {
+        }
 
     }
 

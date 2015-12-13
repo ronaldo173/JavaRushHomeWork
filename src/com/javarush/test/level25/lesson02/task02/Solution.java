@@ -1,5 +1,6 @@
 package com.javarush.test.level25.lesson02.task02;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /* Машину на СТО не повезем!
@@ -9,6 +10,13 @@ import java.util.List;
 Сигнатуры не менять.
 */
 public class Solution {
+    public static void main(String[] args) {
+        Car car = new Car();
+        for (Wheel wheel : car.wheels) {
+            System.out.println(wheel.toString());
+        }
+    }
+
     public static enum Wheel {
         FRONT_LEFT,
         FRONT_RIGHT,
@@ -21,6 +29,11 @@ public class Solution {
 
         public Car() {
             //init wheels here
+            wheels = new ArrayList<>();
+            String dataForLoad[] = loadWheelNamesFromDB();
+            for (String s : dataForLoad) {
+                wheels.add(Wheel.valueOf(s));
+            }
         }
 
         protected String[] loadWheelNamesFromDB() {

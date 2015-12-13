@@ -40,8 +40,8 @@ class Outer {
     }
 
     private class Inner {
-        private int fieldPrivate = 1;
         public int fieldPublic = 10;
+        private int fieldPrivate = 1;
 
         public Inner() {
             System.out.println("Inner constructor");

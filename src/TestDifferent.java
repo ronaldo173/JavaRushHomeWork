@@ -17,9 +17,10 @@ public class TestDifferent {
 }
 
 abstract class Figure {
-    public Figure(){
-        System.out.println("constructor parent " );
+    public Figure() {
+        System.out.println("constructor parent ");
     }
+
     public void print() {
         System.out.println("Figure");
     }

@@ -10,4 +10,8 @@ public class Solution {
         //implement logic here
         return array;
     }
+
+    public static void main(String[] args) {
+
+    }
 }

@@ -36,16 +36,17 @@ public class Solution {
 //        return new LocalIterator();
 
         return new Iterator() {
-            @Override
-            public Iterator next() {
-                return getIterator(name);
-            }
-
             String iteratorName;
+
             {
                 iteratorName = name;
                 countItems++;
                 System.out.println(iteratorName + " item " + countItems);
+            }
+
+            @Override
+            public Iterator next() {
+                return getIterator(name);
             }
 
         };
