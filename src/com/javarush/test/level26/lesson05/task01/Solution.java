@@ -14,7 +14,7 @@ public class Solution extends Thread {
     private static final AtomicInteger aliveThreadIndex = new AtomicInteger();
     private static final Logger log = Logger.getAnonymousLogger();
 
-    private static boolean debugLifecycle = false;
+    private volatile static boolean debugLifecycle = false;
 
     public Solution(Runnable runnable) {
         this(runnable, DEFAULT_JAVARUSH_THREAD_NAME);
@@ -39,12 +39,12 @@ public class Solution extends Thread {
         }).start();
 
 
-        new Solution(new Runnable() {
-            @Override
-            public void run() {
-                throw new RuntimeException("Oops");
-            }
-        }).start();
+//        new Solution(new Runnable() {
+//            @Override
+//            public void run() {
+//                throw new RuntimeException("Oops");
+//            }
+//        }).start();
     }
 
     public void run() {

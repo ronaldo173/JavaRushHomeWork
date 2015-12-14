@@ -6,6 +6,8 @@ package com.javarush.test.level26.lesson08.task02;
 synchronized(this) для этого не подходит, используйте другой объект для лока.
 */
 public class Solution {
+    Object object = new Object();
+    Object object2 = new Object();
     int var1;
     int var2;
     int var3;
@@ -19,10 +21,14 @@ public class Solution {
     }
 
     public int getSumOfVar1AndVar2() {
-        return var1 + var2;
+        synchronized (object) {
+            return var1 + var2;
+        }
     }
 
     public int getSumOfVar3AndVar4() {
-        return var3 + var4;
+        synchronized (object2) {
+            return var3 + var4;
+        }
     }
 }

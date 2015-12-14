@@ -18,7 +18,7 @@ public class Solution {
     private final URL javarushVkGroupUrl2Child;
     private final URL javarushVkGroupUrl3Child;
     private final Set<URL> urlsForProcessing = new HashSet();
-    private ExecutorService executorService;
+    private volatile ExecutorService executorService;
 
     public Solution() throws MalformedURLException {
         javarushUrl = new URL("http://javarush.ru/");

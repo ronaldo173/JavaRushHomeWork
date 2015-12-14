@@ -8,4 +8,20 @@ IntegerHolder должен быть для типа int, быть нитебез
 public class Solution {
     public static void main(String[] args) {
     }
+
+    public static class IntegerHolder<Integer> {
+        private volatile int holder;
+
+        public IntegerHolder(int holder) {
+            this.holder = holder;
+        }
+
+        public synchronized int getHolder() {
+            return holder;
+        }
+
+        public synchronized void setHolder(int holder) {
+            this.holder = holder;
+        }
+    }
 }

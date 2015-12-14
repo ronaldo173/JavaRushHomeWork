@@ -11,7 +11,7 @@ public class TestComparator {
             Comparator<WomanCOmp>() {
                 @Override
                 public int compare(WomanCOmp o1, WomanCOmp o2) {
-                    return o1.age - o2.age;
+                    return o2.age - o1.age;
                 }
             };
 
