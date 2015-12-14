@@ -17,6 +17,15 @@ public class Solution {
 
     public void someMethod() {
         //implement logic here, use the lock field
+        if (lock.tryLock()) {
+            try {
+                ifLockIsFree();
+            } finally {
+                lock.unlock();
+            }
+        } else {
+            ifLockIsBusy();
+        }
     }
 
     public void ifLockIsFree() {
