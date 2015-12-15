@@ -44,6 +44,6 @@ public class Solution {
     }
 
     private void doSomething() {
-        System.out.println(Thread.currentThread().getName());
+//        System.out.println(Thread.currentThread().getName());
     }
 }
