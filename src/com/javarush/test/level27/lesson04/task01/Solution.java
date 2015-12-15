@@ -33,11 +33,15 @@ public class Solution {
 
     public void sout(Solution solution) {
         System.out.format("111:  %s: %s %n", this.field, solution.getField());
-        solution.sout2(this);
+        synchronized (this) {
+            solution.sout2(this);
+        }
     }
 
     public void sout2(Solution solution) {
         System.out.format("222:  %s: %s %n", this.field, solution.getField());
-        solution.sout(this);
+        synchronized (this) {
+            solution.sout(this);
+        }
     }
 }

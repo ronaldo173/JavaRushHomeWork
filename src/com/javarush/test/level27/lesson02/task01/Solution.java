@@ -13,22 +13,19 @@ public class Solution {
         BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
         int a;
         int sum = 0;
-        first:
         do {
             a = Integer.parseInt(bis.readLine());
-            second:
             sum += a;
         } while (isContinueWhile(sum));
         System.out.println(sum);
     }
 
     private static boolean isContinueWhile(int sum) {
-        second:
         for (int k = 0; k < 100; k += 20)
             if (sum < 100 && k <= 20) {
                 System.out.println(k < 2 ? k : sum % k);
             } else {
-                break second;
+                break;
             }
 
         return false;
