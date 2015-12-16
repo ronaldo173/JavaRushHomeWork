@@ -10,7 +10,12 @@ package com.javarush.test.level27.lesson06.task02;
 public class Solution {
     public static boolean isNormalLockOrder(final Solution solution, final Object o1, final Object o2) throws Exception {
         //do something here
-        return false;
+        boolean result = false;
+        if (!o1.equals(o2)) {
+            result = o1.hashCode() > o2.hashCode() ? true : false;
+        }
+//        solution.someMethodWithSynchronizedBlocks(o1, o2);
+        return result;
     }
 
     public static void main(String[] args) throws Exception {
@@ -18,11 +23,14 @@ public class Solution {
         final Object o1 = new Object();
         final Object o2 = new Object();
 
+//        System.out.println(o1 + " " + o2);
+
         new Thread() {
             @Override
             public void run() {
                 try {
-                    isNormalLockOrder(solution, o1, o2); //expected boolean b
+                    boolean normalLockOrder = isNormalLockOrder(solution, o1, o2);//expected boolean b
+//                    System.out.println(normalLockOrder);
                 } catch (Exception ignored) {
                 }
             }
@@ -32,7 +40,8 @@ public class Solution {
             @Override
             public void run() {
                 try {
-                    isNormalLockOrder(solution, o2, o1); //expected boolean !b
+                    boolean normalLockOrder = isNormalLockOrder(solution, o2, o1);//expected boolean !b
+//                    System.out.println(normalLockOrder);
                 } catch (Exception ignored) {
                 }
             }

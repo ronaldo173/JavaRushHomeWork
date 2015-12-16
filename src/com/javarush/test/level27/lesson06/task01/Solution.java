@@ -11,6 +11,7 @@ public class Solution {
         final Object o1 = new Object();
         final Object o2 = new Object();
         final Solution solution = new Solution();
+//        solution.unsafeMethod(o1,o2);
 
         new Thread() {
             @Override
@@ -28,9 +29,13 @@ public class Solution {
     }
 
     public void safeMethod(Object obj1, Object obj2) {
-        synchronized (obj1) {
+        Object max, min;
+        max = obj1.hashCode() > obj2.hashCode() ? obj1 : obj2;
+        min = obj1.hashCode() < obj2.hashCode() ? obj1 : obj2;
+
+        synchronized (max) {
             longTimeMethod();
-            synchronized (obj2) {
+            synchronized (min) {
                 unsafeMethod(obj1, obj2);
             }
         }
