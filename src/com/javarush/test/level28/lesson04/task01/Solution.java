@@ -1,5 +1,8 @@
 package com.javarush.test.level28.lesson04.task01;
 
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /* Пишем свою ThreadFactory
 В классе Solution создайте публичный статический класс AmigoThreadFactory, реализующий интерфейс ThreadFactory
 1.Реализация интерфейсного метода - создайте и верните трэд, который должен:
@@ -19,36 +22,54 @@ secondGroup-pool-2-thread-3
 firstGroup-pool-1-thread-2
 secondGroup-pool-2-thread-2
 */
-//public class Solution {
-//
-//    public static void main(String[] args) {
-//        class EmulateThreadFactoryTask implements Runnable {
-//            @Override
-//            public void run() {
-//                emulateThreadFactory();
-//            }
-//        }
-//
-//        ThreadGroup group = new ThreadGroup("firstGroup");
-//        Thread thread = new Thread(group, new EmulateThreadFactoryTask());
-//
-//        ThreadGroup group2 = new ThreadGroup("secondGroup");
-//        Thread thread2 = new Thread(group2, new EmulateThreadFactoryTask());
-//
-//        thread.start();
-//        thread2.start();
-//    }
-//
-//    private static void emulateThreadFactory() {
-//        AmigoThreadFactory factory = new AmigoThreadFactory();
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println(Thread.currentThread().getName());
-//            }
-//        };
-//        factory.newThread(r).start();
-//        factory.newThread(r).start();
-//        factory.newThread(r).start();
-//    }
-//}
+public class Solution {
+
+    public static void main(String[] args) {
+        class EmulateThreadFactoryTask implements Runnable {
+            @Override
+            public void run() {
+                emulateThreadFactory();
+            }
+        }
+
+        ThreadGroup group = new ThreadGroup("firstGroup");
+        Thread thread = new Thread(group, new EmulateThreadFactoryTask());
+
+        ThreadGroup group2 = new ThreadGroup("secondGroup");
+        Thread thread2 = new Thread(group2, new EmulateThreadFactoryTask());
+
+        thread.start();
+        thread2.start();
+    }
+
+    private static void emulateThreadFactory() {
+        AmigoThreadFactory factory = new AmigoThreadFactory();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+            }
+        };
+        factory.newThread(r).start();
+        factory.newThread(r).start();
+        factory.newThread(r).start();
+    }
+
+    public static class AmigoThreadFactory implements ThreadFactory {
+        private static AtomicInteger factoryCount = new AtomicInteger(0);
+        private AtomicInteger threadNum = new AtomicInteger(0);
+        private AtomicInteger countInFabric = new AtomicInteger(0);
+
+        public AmigoThreadFactory() {
+            countInFabric.set(factoryCount.incrementAndGet());
+        }
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r);
+
+            thread.setName(thread.getThreadGroup().getName() + "-pool-" + countInFabric + "-thread-" + threadNum.incrementAndGet());
+            return thread;
+        }
+    }
+}

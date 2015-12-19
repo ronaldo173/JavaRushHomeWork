@@ -24,10 +24,31 @@ public class Solution {
         undefined
         it's E2.D
          */
+
+        System.out.println("---");
+        Solution.switchTest(E1.Y);
+        Solution.switchTest(E2.F);
+
+//        //**test enum
+//        TestEnum testEnum = new TestEnum();
+//        testEnum.testEnum("sunday");
     }
 
     public static void switchTest(Enum obj) {
         //add your code here
+//        System.out.println(obj.getDeclaringClass() + " " + obj.name() + " " + obj.toString());
+//        String enumClassName = obj.getDeclaringClass().getSimpleName();
+//        System.out.println(enumClassName);
+        switch (obj.getDeclaringClass().getSimpleName()) {
+            case "E1":
+                System.out.println("it's E1." + obj);
+                break;
+            case "E2":
+                System.out.println("it's E2." + obj);
+                break;
+            default:
+                System.out.println("undefined");
+        }
 
     }
 
@@ -37,3 +58,26 @@ public class Solution {
 
     public static enum E3 {D, E, F}
 }
+
+//class TestEnum {
+//    Day day;
+//
+//    public void testEnum(String dayIs) {
+//        day = Day.valueOf(dayIs.toUpperCase());
+//        switch (day) {
+//            case SUNDAY:
+//                System.out.println("sunday");
+//                break;
+//            case THURSDAY:
+//                System.out.println(Day.THURSDAY.toString());
+//                break;
+//            default:
+//                System.out.println("xz");
+//        }
+//    }
+//
+//}
+//
+//enum Day {
+//    SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+//}
