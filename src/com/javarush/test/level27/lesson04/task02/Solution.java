@@ -1,52 +1,49 @@
 package com.javarush.test.level27.lesson04.task02;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /* Второй вариант дедлока
 В методе secondMethod в синхронизированных блоках расставьте локи так,
 чтобы при использовании класса Solution нитями образовывался дедлок
 */
 public class Solution {
     private final Object lock = new Object();
-    private final Object lock2 = new Object();
 
-    public void firstMethod() {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        final Solution solution = new Solution();
+        Solution solution2 = new Solution();
+
+        for (int i = 0; i < 3; i++) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+//                    System.out.println(Thread.currentThread().getName());
+                    solution.firstMethod();
+                    solution.secondMethod();
+                }
+            });
+        }
+
+        executorService.shutdown();
+    }
+
+    public synchronized void firstMethod() {
         synchronized (lock) {
-            synchronized (lock2) {
-                doSomething();
-            }
+            doSomething();
         }
     }
 
     public void secondMethod() {
         synchronized (lock) {
-            synchronized (lock2) {
+            synchronized (this) {
                 doSomething();
             }
         }
     }
 
-    private synchronized void doSomething() {
-        System.out.println("do something");
-    }
-}
-
-class Test {
-    public static void main(String[] args) throws InterruptedException {
-        final Solution solution = new Solution();
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                solution.firstMethod();
-            }
-        });
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                solution.secondMethod();
-            }
-        });
-
-        t1.start();
-        t2.start();
-        System.out.println("\n...finished");
+    private void doSomething() {
+//        System.out.println(Thread.currentThread().getName());
     }
 }
