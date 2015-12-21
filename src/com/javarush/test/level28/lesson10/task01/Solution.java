@@ -25,7 +25,24 @@ public class Solution {
 
         executor.shutdown();
         executor.awaitTermination(10, TimeUnit.SECONDS);
+    }
 
+    public static Callable<String> getTask(final int i) {
+
+        class getCallable implements Callable<String> {
+
+            @Override
+            public String call() throws Exception {
+                int sum = 0;
+                for (int j = 1; j <= i; j++) {
+                    sum += i;
+                }
+                return Integer.toString(sum);
+            }
+        }
+        return new getCallable();
+    }
+}
 /* output
 500500
 501501
@@ -40,9 +57,3 @@ public class Solution {
 510555
 50000005000000
 */
-    }
-
-    public static Callable<String> getTask(final int i) {
-        return null;
-    }
-}

@@ -1,5 +1,10 @@
 package com.javarush.test.level28.lesson08.task02;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /* Знакомство с ThreadPoolExecutor
 1. В методе main создай очередь LinkedBlockingQueue<Runnable>
 2. В цикле добавь в очередь 10 тасок Runnable.
@@ -18,6 +23,24 @@ package com.javarush.test.level28.lesson08.task02;
 public class Solution {
     public static void main(String[] args) throws InterruptedException {
         //Add your code here
+
+        BlockingQueue queue = new LinkedBlockingQueue<Runnable>();
+
+        for (int i = 0; i < 10; i++) {
+            final int finalI = i + 1;
+            queue.add(new Runnable() {
+                @Override
+                public void run() {
+                    doExpensiveOperation(finalI);
+                }
+            });
+        }
+
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 5, 1000, TimeUnit.MILLISECONDS, queue);
+
+        threadPoolExecutor.prestartAllCoreThreads();
+        threadPoolExecutor.shutdown();
+        threadPoolExecutor.awaitTermination(5, TimeUnit.SECONDS);
 
         /* output example
 pool-1-thread-2, localId=2
