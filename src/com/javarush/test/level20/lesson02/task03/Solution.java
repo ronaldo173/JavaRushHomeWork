@@ -9,69 +9,42 @@ import java.util.*;
 Реализуйте логику записи в файл и чтения из файла для карты properties.
 */
 public class Solution {
-    private static Map<String, String> mapProperty;
-    private static String fileName, savedFileName;
-    private static File saveFile;
+    public static Map<String, String> properties = new HashMap<>();
 
-    public static void main(String[] args) throws IOException {
-        Solution solution = new Solution();
-        solution.fillInPropertiesMap();
+    public static void main(String[] args) throws Exception {
 
-        savedFileName = "saved" + fileName;
-        saveFile = new File(savedFileName);
-        if (!saveFile.exists()) {
-            saveFile.createNewFile();
-        }
-
-        try (FileOutputStream fileOutputStream = new FileOutputStream(saveFile)) {
-            solution.save(fileOutputStream);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void fillInPropertiesMap() throws IOException {
-        //implement this method - реализуйте этот метод
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ) {
-            fileName = reader.readLine();
-            System.out.println("fileName: " + fileName);//test
-        }
-        try (
-                InputStream inputStreamProp = new FileInputStream(fileName)
-        ) {
-            load(inputStreamProp);
-        } catch (Exception e) {
+    public void fillInPropertiesMap() {
+        try {
+            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+            String fileName = console.readLine();
+            FileInputStream fin = new FileInputStream(fileName);
+            Properties props = new Properties();
+            props.load(fin);
+            for (Map.Entry<Object, Object> pairs : props.entrySet()) {
+                properties.put((String) pairs.getKey(), (String) pairs.getValue());
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void save(OutputStream outputStream) throws Exception {
-        //implement this method - реализуйте этот метод
-        try (
-                PrintWriter printWriter = new PrintWriter(outputStream)) {
-            for (Map.Entry<String, String> prop : mapProperty.entrySet()) {
-                String stringForFile = prop.getKey() + " = " + prop.getValue();
-//                System.out.println(stringForFile); //test
-                printWriter.println(stringForFile);
-            }
+        Properties props = new Properties();
+        for (Map.Entry<String, String> pairs : properties.entrySet()) {
+            props.put(pairs.getKey(), pairs.getValue());
         }
+        props.store(outputStream, "");
     }
 
     public void load(InputStream inputStream) throws Exception {
         //implement this method - реализуйте этот метод
-        Properties tempProp;
-        tempProp = new Properties();
-        mapProperty = new LinkedHashMap<>();
+        Properties props = new Properties();
+        props.load(inputStream);
 
-        tempProp.load(inputStream);
-        List<String> list = new ArrayList<>(tempProp.stringPropertyNames());
-        Collections.reverse(list);
-        System.out.println(list);
-
-        for (String s : list) {
-            mapProperty.put(s, tempProp.getProperty(s));
+        for (Map.Entry<Object, Object> pairs : props.entrySet()) {
+            properties.put((String) pairs.getKey(), (String) pairs.getValue());
         }
     }
 }

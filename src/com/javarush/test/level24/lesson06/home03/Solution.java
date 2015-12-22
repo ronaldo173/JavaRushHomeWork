@@ -3,16 +3,18 @@ package com.javarush.test.level24.lesson06.home03;
 import java.util.List;
 
 interface Item {
-    public int getId();
+    int getId();
 
-    public String getTM();
+    String getTM();
+
+    double getPrice();
 
 }
 
 interface Jeans extends Item {
-    public int getLength();
+    int getLength();
 
-    public int getSize();
+    int getSize();
 }
 
 /* Интернет-магазин продажи джинсов

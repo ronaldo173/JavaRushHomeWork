@@ -11,11 +11,8 @@ import java.util.Comparator;
 public class Solution {
     public static Integer[] sort(Integer[] array) {
         //implement logic here
-//        System.out.println(array.length);
         Arrays.sort(array);
         final int median = getMedian(array);
-        System.out.println(median);
-        //check mediane
 
         Comparator<Integer> comparatorMedian = new Comparator<Integer>() {
             @Override
@@ -33,13 +30,12 @@ public class Solution {
     }
 
     public static int getMedian(Integer[] array) {
-        int median = 0;
+        int median;
 
         if (array.length % 2 != 0) {
             median = array[array.length / 2];
         } else {
-//            System.out.println("%2==0: near mediane: " + array[array.length / 2 - 1] + " " + (array[array.length / 2 + 1]));
-            median = (array[array.length / 2 - 1] + array[array.length / 2 + 1]) / 2;
+            median = (array[array.length / 2 - 1] + array[array.length / 2]) / 2;
         }
         return median;
     }

@@ -34,9 +34,8 @@ import java.util.TreeMap;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        System.out.println("Test prog:");
+//        System.out.println("Test prog:");
         String nameFIle = readConsoleLine();
-//        System.out.println(nameFIle);
         Map<Integer, Boolean> tagIndexes = new TreeMap<>();
         Map<Integer, Integer> finalIndexes = new TreeMap<>();
         Stack<Integer> openTagsStack = new Stack<>();
@@ -51,8 +50,6 @@ public class Solution {
         while (fileReader.ready())
             sb.append(fileReader.readLine());
         fileReader.close();
-//        System.out.println(sb);//test sb
-//        System.out.println("****************");
 
         int openTagIndex = sb.indexOf(openTag);
         while (openTagIndex != -1) {

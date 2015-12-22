@@ -28,19 +28,16 @@ public class Solution {
     }
 
     public static Callable<String> getTask(final int i) {
-
-        class getCallable implements Callable<String> {
-
+        return new Callable<String>() {
             @Override
             public String call() throws Exception {
-                int sum = 0;
+                long sum = 0;
                 for (int j = 1; j <= i; j++) {
-                    sum += i;
+                    sum += j;
                 }
-                return Integer.toString(sum);
+                return String.valueOf(sum);
             }
-        }
-        return new getCallable();
+        };
     }
 }
 /* output

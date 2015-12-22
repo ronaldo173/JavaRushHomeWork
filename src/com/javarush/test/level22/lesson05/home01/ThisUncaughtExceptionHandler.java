@@ -18,18 +18,10 @@ public class ThisUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
     }
 
     protected String getFormattedStringForSecondThread(Thread t, Throwable e, String string) {
-        return String.format(string, e.getClass().getSimpleName(), e.getCause(), t.getName());
+        return String.format(string, e.getCause(), e.getClass().getSimpleName(), t.getName());
     }
 
     protected String getFormattedStringForFirstThread(Thread t, Throwable e, String string) {
-        return String.format(string, e.getClass().getSimpleName(), e.getCause(), t.getName());
+        return String.format(string, t.getName(), e.getClass().getSimpleName(), e.getCause());
     }
 }
-
-/*
-3. Реализуйте логику трех protected методов в ThisUncaughtExceptionHandler используя вызовы соответствующих методов согласно следующему шаблону:
-a) 1# : TooShortStringFirstThreadException : java.lang.StringIndexOutOfBoundsException: String index out of range: -1
-б) java.lang.StringIndexOutOfBoundsException: String index out of range: -1 : TooShortStringSecondThreadException : 2#
-в) RuntimeException : java.lang.StringIndexOutOfBoundsException: String index out of range: -1 : 3#
-
- */

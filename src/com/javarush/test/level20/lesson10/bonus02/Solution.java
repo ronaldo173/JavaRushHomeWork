@@ -19,7 +19,7 @@ public class Solution {
                 {1, 1, 0, 1}
         };
         int count = getRectangleCount(a);
-        System.out.println("count = " + count + ". Должно быть 2");
+        System.out.println("count = " + count + ". Должно быть 3");
     }
 
     public static int getRectangleCount(byte[][] a) {

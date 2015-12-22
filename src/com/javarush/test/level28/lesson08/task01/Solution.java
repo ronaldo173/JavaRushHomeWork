@@ -19,7 +19,7 @@ public class Solution {
 
         for (int i = 0; i < 10; i++) {
             final int finalCount = i + 1;
-            executor.execute(new Runnable() {
+            executor.submit(new Runnable() {
                 @Override
                 public void run() {
                     doExpensiveOperation(finalCount);

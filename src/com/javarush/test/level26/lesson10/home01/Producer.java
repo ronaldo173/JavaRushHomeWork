@@ -1,6 +1,5 @@
 package com.javarush.test.level26.lesson10.home01;
 
-
 import java.util.concurrent.BlockingQueue;
 
 public class Producer implements Runnable {
@@ -21,6 +20,4 @@ public class Producer implements Runnable {
             System.out.println(String.format("[%s] thread was terminated", Thread.currentThread().getName()));
         }
     }
-
-
 }

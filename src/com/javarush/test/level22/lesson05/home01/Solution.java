@@ -17,7 +17,6 @@ public class Solution {
     private Thread thread1;
     private Thread thread2;
     private Thread thread3;
-
     public Solution() {
         initThreads();
     }
@@ -39,28 +38,22 @@ public class Solution {
     }
 
     public String getPartOfString(String string, String threadName) {
-        String result;
 
-        int indexFirstTab = string.indexOf("\t");
-        int indexLastTab = string.lastIndexOf("\t");
-//        System.out.println(threadName + "indexes:  " + indexFirstTab + " " + indexLastTab);
+        String result = null;
 
         try {
-            result = string.substring(indexFirstTab + 1, indexLastTab);
+            int startIdx = string.indexOf('\t');
+            int endIdx = string.lastIndexOf('\t');
+            result = string.substring(startIdx + 1, endIdx);
         } catch (Exception e) {
-            switch (threadName) {
-                case FIRST_THREAD_NAME:
-                    throw new TooShortStringFirstThreadException();
-                case SECOND_THREAD_NAME:
-                    throw new TooShortStringSecondThreadException();
-                default:
-                    throw new RuntimeException();
-            }
+            if (FIRST_THREAD_NAME.equals(threadName))
+                throw new TooShortStringFirstThreadException(e);
+            else if (SECOND_THREAD_NAME.equals(threadName))
+                throw new TooShortStringSecondThreadException(e);
+            else
+                throw new RuntimeException(e);
         }
-        return result;
-    }
 
-    enum threadNames {
-        FIRST_THREAD_NAME, SECOND_THREAD_NAME
+        return result;
     }
 }

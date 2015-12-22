@@ -79,7 +79,7 @@ public class Solution {
 
                         int incomeSort = 0;
                         incomeSort = dif1 > dif2 ? -1 : 1;
-                        System.out.println(dif1 + " ... " + dif2 + " ..." + incomeSort);
+//                        System.out.println(dif1 + " ... " + dif2 + " ..." + incomeSort);
 
 //                        Double difDouble1 = dif1;
 //                        Double difDouble2 = dif2;

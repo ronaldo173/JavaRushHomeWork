@@ -12,15 +12,12 @@ public class Solution {
     public static class IntegerHolder<Integer> {
         private volatile int holder;
 
-        public IntegerHolder(int holder) {
-            this.holder = holder;
-        }
 
-        public synchronized int getHolder() {
+        public synchronized int get() {
             return holder;
         }
 
-        public synchronized void setHolder(int holder) {
+        public synchronized void set(int holder) {
             this.holder = holder;
         }
     }

@@ -9,43 +9,48 @@ import java.io.*;
 Сигнатура класса В не содержит ошибку :)
 Метод main не участвует в тестировании.
 */
-public class Solution {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        File file = new File("tempJRfiles\\temp.txt");
-        B bBefore = new B("beforeSerializ");
-        B bAfter = null;
+public class Solution implements Serializable {
 
-        if (!file.exists()) {
-            file.createNewFile();
-        }
+    public static void main(String[] args) throws Exception {
+        String fileName = "src/main/resources/level20/lesson10/task03/t1.txt";
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName));
+        Solution s = new Solution();
+        B b = s.new B("aa");
+        oos.writeObject(b);
+        oos.close();
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
-             FileInputStream fileInputStream = new FileInputStream(file);
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+        B loadedB;
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
+        loadedB = (B) ois.readObject();
+        ois.close();
 
-            objectOutputStream.writeObject(bBefore);
-            bAfter = (B) objectInputStream.readObject();
-        }
-
-        System.out.println(bBefore.name + "----" + bAfter.name);
+        System.out.println(b.name);
+        System.out.println(loadedB.name);
     }
 
     public static class A {
         protected String name = "A";
 
-        public A() {
-        }
-
         public A(String name) {
             this.name += name;
         }
+
+        public A() {
+        }
     }
 
-    public static class B extends A implements Serializable {
+    public class B extends A implements Serializable {
         public B(String name) {
             super(name);
             this.name += name;
+        }
+
+        private void writeObject(ObjectOutputStream out) throws IOException {
+            out.writeObject(name);
+        }
+
+        private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+            name = (String) in.readObject();
         }
     }
 }

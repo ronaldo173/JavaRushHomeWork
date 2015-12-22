@@ -29,18 +29,10 @@ public class Solution {
     static StringBuilder builder = null;
 
     public static void main(String[] args) throws IOException {
-//        String s1 = "bla".substring(0,1);
-//        String s2 = "Bla".substring(0,1);
-//        System.out.println(s1 + " " + s2);
-//        System.out.println(s1 == s2);
-//        System.out.println(s1.equals(s2));
-//        System.out.println(s1.equalsIgnoreCase(s2));//true
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName = reader.readLine();
 //        String fileName = "C:\\Users\\Santer\\Desktop\\Development\\JavaRush\\JavaRushHomeWork\\tempJRfiles\\temp.txt";
         BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-
 
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -51,8 +43,7 @@ public class Solution {
 
         //...
         StringBuilder result = getLine();
-        System.out.println("builder: " + result.toString());
-//        System.out.println("set: " + set);
+        System.out.println(result.toString());
     }
 
     public static StringBuilder getLine(String... words) {

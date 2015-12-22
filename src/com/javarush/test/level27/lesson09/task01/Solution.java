@@ -8,7 +8,6 @@ import java.util.concurrent.CountDownLatch;
 Весь лишний код удалите из класса.
 */
 public abstract class Solution {
-    //    private final Object lock = new Object();
     private final CountDownLatch latch = new CountDownLatch(1);
 
     public void someMethod() throws InterruptedException {

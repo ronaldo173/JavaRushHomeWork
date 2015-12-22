@@ -13,7 +13,10 @@ import java.util.List;
 */
 public class Solution {
     public static String getPartOfString(String string) throws TooShortStringException {
-        String result = null;
+        if (string == null) {
+            throw new TooShortStringException();
+        }
+        String result;
         List<Integer> indexesOfProbel = new ArrayList<>();
         char[] temp = string.toCharArray();
         for (int i = 0; i < temp.length; i++) {
@@ -21,28 +24,25 @@ public class Solution {
                 indexesOfProbel.add(i);
             }
         }
-//        System.out.println(indexesOfProbel);
 
         try {
             result = string.substring(indexesOfProbel.get(0) + 1, indexesOfProbel.get(4));
         } catch (Exception e) {
             throw new TooShortStringException();
-//            e.printStackTrace();
         }
 
         return result;
-
     }
 
     public static void main(String[] args) throws TooShortStringException {
-        String s = "Hello world thi is a super java developer!";
+        String s = "JavaRush - лучший сервис обучения Java.";
         String s1 = "Alex Best!";
 
-        s = getPartOfString(s);
+        s = getPartOfString(null);
         System.out.println(s);
-//        s1=getPartOfString(s);
+//        s1 = getPartOfString(s);
 //        System.out.println(s1);
-        System.out.println(getPartOfString("sfa 123 123 123 132sd"));
+//        System.out.println(getPartOfString("sfa 123 123 123 132sd"));
     }
 
     public static class TooShortStringException extends Exception {

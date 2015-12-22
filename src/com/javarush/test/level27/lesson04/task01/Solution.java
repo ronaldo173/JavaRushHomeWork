@@ -31,14 +31,14 @@ public class Solution {
         return field;
     }
 
-    public void sout(Solution solution) {
+    public synchronized void sout(Solution solution) {
         synchronized (this) {
             System.out.format("111:  %s: %s %n", this.field, solution.getField());
             solution.sout2(this);
         }
     }
 
-    public void sout2(Solution solution) {
+    public synchronized void sout2(Solution solution) {
         synchronized (this) {
             System.out.format("222:  %s: %s %n", this.field, solution.getField());
             solution.sout(this);

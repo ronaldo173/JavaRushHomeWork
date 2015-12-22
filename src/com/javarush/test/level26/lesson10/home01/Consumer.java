@@ -1,12 +1,9 @@
 package com.javarush.test.level26.lesson10.home01;
 
-import com.javarush.test.level16.lesson13.bonus02.*;
-import com.javarush.test.level16.lesson13.bonus02.Solution;
-
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Created by Alex on 14.12.2015.
+ * Created by Alex on 22.12.2015.
  */
 public class Consumer implements Runnable {
     protected BlockingQueue queue;
@@ -18,15 +15,13 @@ public class Consumer implements Runnable {
     @Override
     public void run() {
 
-
-        try {
-            while (true) {
-                System.out.println(queue.take());
+        while (!Thread.interrupted()) {
+            try {
                 Thread.sleep(500);
+                System.out.println(queue.take());
+            } catch (InterruptedException e) {
+                System.out.println(String.format("[%s] thread was terminated", Thread.currentThread().getName()));
             }
-        } catch (InterruptedException e) {
-            System.out.println(String.format("[%s] thread was terminated", Thread.currentThread().getName()));
         }
-
     }
 }

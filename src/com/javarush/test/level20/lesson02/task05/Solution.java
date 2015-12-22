@@ -9,6 +9,7 @@ import java.io.*;
 Метод main реализован только для вас и не участвует в тестировании
 */
 public class Solution {
+
     public static int countStrings;
 
     public static void main(java.lang.String[] args) {
@@ -49,51 +50,31 @@ public class Solution {
         }
     }
 
-
     public static class Object {
         public String string1;
         public String string2;
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            try (PrintWriter writer = new PrintWriter(outputStream)) {
-                java.lang.String checkStr1 = checkString(string1);
-                java.lang.String checkStr2 = checkString(string2);
-
-                writer.println(checkStr1);
-                if (checkStr1.equals("yes")) {
-                    writer.println(string1.number);
-                }
-                writer.println(checkStr2);
-                if (checkStr1.equals("yes")) {
-                    writer.println(string2.number);
-                }
-//                writer.println("----");//test serialization
-//                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-//                objectOutputStream.writeObject(this);
-//                objectOutputStream.close();
-            }
-        }
-
-        private java.lang.String checkString(String string1) {
-            if (string1 != null) {
-                return "yes";
-            } else return "no";
+            PrintWriter fWriter = new PrintWriter(outputStream);
+            fWriter.println(string1.number + "");
+            fWriter.println(string2.number + "");
+            fWriter.close();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-                if (reader.readLine().equals("yes")) {
-                    countStrings = Integer.parseInt(reader.readLine()) - 1;
-                    this.string1 = new String();
-                }
-                if (reader.readLine().equals("yes")) {
-//                    System.out.println(Integer.parseInt(reader.readLine()));
-                    countStrings = Integer.parseInt(reader.readLine()) - 1;
-                    this.string2 = new String();
-                }
-            }
+            BufferedReader fReader = new BufferedReader(new InputStreamReader(inputStream));
+            int tmp = countStrings;
+
+            countStrings = Integer.parseInt(fReader.readLine()) - 1;
+            this.string1 = new String();
+
+            countStrings = Integer.parseInt(fReader.readLine()) - 1;
+            this.string2 = new String();
+
+            fReader.close();
+            countStrings = tmp;
         }
     }
 

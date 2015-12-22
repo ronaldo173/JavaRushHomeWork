@@ -37,6 +37,11 @@ public class Util {
                     public String getTM() {
                         return company.fullName;
                     }
+
+                    @Override
+                    public double getPrice() {
+                        return price;
+                    }
                 };
             }
             allJeans.add(jeans);
@@ -114,6 +119,11 @@ class Levis extends AbstractJeans {
     public String getTM() {
         return Util.Company.Levis.toString();
     }
+
+    @Override
+    public double getPrice() {
+        return price;
+    }
 }
 
 ////////////////////
@@ -126,6 +136,11 @@ class Denim extends AbstractJeans {
     @Override
     public String getTM() {
         return Util.Company.Denim.toString();
+    }
+
+    @Override
+    public double getPrice() {
+        return price;
     }
 }
 

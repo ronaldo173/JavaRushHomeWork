@@ -24,7 +24,7 @@ public class Solution {
     public static void main(String[] args) throws InterruptedException {
         //Add your code here
 
-        BlockingQueue queue = new LinkedBlockingQueue<Runnable>();
+        LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
 
         for (int i = 0; i < 10; i++) {
             final int finalI = i + 1;
