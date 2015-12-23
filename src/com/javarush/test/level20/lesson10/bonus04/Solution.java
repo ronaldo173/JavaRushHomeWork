@@ -1,5 +1,10 @@
 package com.javarush.test.level20.lesson10.bonus04;
 
+import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.List;
+import java.util.function.Consumer;
+
 /* Свой список
 Посмотреть, как реализован LinkedList.
 Элементы следуют так: 1->2->3->4  и так 4->3->2->1
@@ -48,19 +53,35 @@ package com.javarush.test.level20.lesson10.bonus04;
 Должно быть наследование AbstractList<String>, List<String>, Cloneable, Serializable
 Метод main в тестировании не участвует
 */
-//public class Solution {
-//    public static void main(String[] args) {
-//        List<String> list = new Solution();
-//        for (int i = 1; i < 16; i++) {
-//            list.add(String.valueOf(i));
-//        }
-//        System.out.println("Expected 3, actual is " + ((Solution) list).getParent("8"));
-//        list.remove("5");
-//        System.out.println("Expected null, actual is " + ((Solution) list).getParent("11"));
-//    }
-//
-//    public String getParent(String value) {
-//        //have to be implemented
-//        return null;
-//    }
-//}
+public class Solution extends AbstractList<String> implements List<String>, Cloneable, Serializable {
+    public static void main(String[] args) {
+        List<String> list = new Solution();
+        for (int i = 1; i < 16; i++) {
+            list.add(String.valueOf(i));
+        }
+        System.out.println("Expected 3, actual is " + ((Solution) list).getParent("8"));
+        list.remove("5");
+        System.out.println("Expected null, actual is " + ((Solution) list).getParent("11"));
+    }
+
+    public String getParent(String value) {
+        //have to be implemented
+        return null;
+    }
+
+
+    @Override
+    public String get(int index) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public void forEach(Consumer<? super String> action) {
+
+    }
+}
