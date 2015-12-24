@@ -17,6 +17,73 @@ public class Util {
     public static List<Jeans> getAllJeans() {
 
         //add your code here
+        abstract class AbstractJeans implements Jeans {
+            private int id, length, size;
+            private double price;
+
+            public AbstractJeans(int id, int length, int size, double price) {
+                this.id = id;
+                this.length = length;
+                this.size = size;
+                this.price = price;
+            }
+
+            @Override
+            public int getLength() {
+                return this.length;
+            }
+
+            @Override
+            public int getSize() {
+                return this.size;
+            }
+
+            @Override
+            public int getId() {
+                return this.id;
+            }
+
+            @Override
+            public double getPrice() {
+                return this.price;
+            }
+
+            @Override
+            public abstract String getTM();
+
+            @Override
+            public String toString() {
+                return getClass().getSimpleName() + "{" +
+                        "id=" + id +
+                        ", length=" + length +
+                        ", size=" + size +
+                        ", price=" + price +
+                        '}';
+            }
+        }
+        class Denim extends AbstractJeans {
+
+            public Denim(int id, int length, int size, double price) {
+                super(id, length, size, price);
+            }
+
+            @Override
+            public String getTM() {
+                return Util.Company.Denim.toString();
+            }
+        }
+
+        class Levis extends AbstractJeans {
+
+            public Levis(int id, int length, int size, double price) {
+                super(id, length, size, price);
+            }
+
+            @Override
+            public String getTM() {
+                return Util.Company.Levis.toString();
+            }
+        }
 
         List<Jeans> allJeans = new LinkedList<>();
 
@@ -36,11 +103,6 @@ public class Util {
                 jeans = new AbstractJeans(id, length, size, price) {
                     public String getTM() {
                         return company.fullName;
-                    }
-
-                    @Override
-                    public double getPrice() {
-                        return price;
                     }
                 };
             }
@@ -67,82 +129,6 @@ public class Util {
     }
 }
 
-abstract class AbstractJeans implements Jeans {
-    int id, length, size;
-    double price;
-
-    public AbstractJeans(int id, int length, int size, double price) {
-        this.id = id;
-        this.length = length;
-        this.size = size;
-        this.price = price;
-    }
-
-    public AbstractJeans() {
-    }
-
-    public abstract String getTM();
-
-    @Override
-    public int getLength() {
-        return this.length;
-    }
-
-    @Override
-    public int getSize() {
-        return this.size;
-    }
-
-    @Override
-    public int getId() {
-        return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return getTM() + "{" +
-                "id=" + id +
-                ", length=" + length +
-                ", size=" + size +
-                ", price=" + price +
-                '}';
-    }
-}
-
-/////////////
-class Levis extends AbstractJeans {
-    public Levis(int id, int length, int size, double price) {
-        super(id, length, size, price);
-    }
-
-    @Override
-    public String getTM() {
-        return Util.Company.Levis.toString();
-    }
-
-    @Override
-    public double getPrice() {
-        return price;
-    }
-}
-
-////////////////////
-class Denim extends AbstractJeans {
-
-    public Denim(int id, int length, int size, double price) {
-        super(id, length, size, price);
-    }
-
-    @Override
-    public String getTM() {
-        return Util.Company.Denim.toString();
-    }
-
-    @Override
-    public double getPrice() {
-        return price;
-    }
-}
 
 /*
 2. В классе Util в методе getAllJeans добавьте пропущенную часть java-кода:
