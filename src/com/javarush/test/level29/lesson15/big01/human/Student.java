@@ -32,7 +32,7 @@ public class Student extends UniversityPerson {
     }
 
     public void incAverageGrade(double delta) {
-        averageGrade += delta;
+        setAverageGrade(getAverageGrade() + delta);
     }
 
     public void setBeginningOfSession(Date beginningOfSession) {
@@ -46,11 +46,6 @@ public class Student extends UniversityPerson {
     public double getAverageGrade() {
         return averageGrade;
     }
-
-    /*
-    7.4.	Замена параметров объектом. Перепиши методы setBeginningOfSession и setEndOfSession,
-чтобы они вместо набора параметров принимали по одному объекту даты.
-     */
 
     public void setAverageGrade(double averageGrade) {
         this.averageGrade = averageGrade;
