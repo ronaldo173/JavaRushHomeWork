@@ -60,7 +60,7 @@ public class Student extends UniversityPerson {
     }
 
     @Override
-    String getPosition() {
+    public String getPosition() {
         return "Студент";
     }
 }

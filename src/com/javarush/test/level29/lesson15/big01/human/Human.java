@@ -83,7 +83,7 @@ public class Human implements Alive {
     public void live() {
     }
 
-    String getPosition() {
+    public String getPosition() {
         return "Человек";
     }
 
