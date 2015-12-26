@@ -1,6 +1,10 @@
 package com.javarush.test.level29.lesson15.big01.human;
 
-public class Human {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Human implements Alive {
     public static final int FIRST = 1;
     public static final int SECOND = 2;
     public static final int THIRD = 3;
@@ -8,17 +12,34 @@ public class Human {
     public static int nextId = 0;
     protected int age;
     protected String name;
-    protected int course;
+
     protected int[] size;
-    protected boolean isSoldier;
+    private List<Human> children = new ArrayList<>();
     private int id;
     private int bloodGroup;
 
-    public Human(boolean isSoldier) {
-        this.isSoldier = isSoldier;
+
+    public Human(String name, int age) {
+        this.age = age;
+        this.name = name;
+
         this.id = nextId;
         nextId++;
     }
+
+
+    public List<Human> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
+
+    public void addChild(Human children) {
+        children.addChild(children);
+    }
+
+    public void removeChild(Human children) {
+        this.children.remove(children);
+    }
+
 
     public int getBloodGroup() {
         return bloodGroup;
@@ -44,17 +65,6 @@ public class Human {
         this.name = name;
     }
 
-    public int getCourse() {
-        return course;
-    }
-
-    public void live() {
-        if (isSoldier)
-            fight();
-    }
-
-    public void fight() {
-    }
 
     public int getId() {
         return id;
@@ -66,5 +76,11 @@ public class Human {
 
     public void printSize() {
         System.out.println("Рост: " + size[0] + " Вес: " + size[1]);
+    }
+
+
+    @Override
+    public void live() {
+
     }
 }
