@@ -1,6 +1,7 @@
 package com.javarush.test.level29.lesson15.big01.human;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class University {
@@ -39,17 +40,49 @@ public class University {
         this.age = age;
     }
 
-    public Student getStudentWithAverageGrade() {
-        //TODO:
-        return null;
+    public Student getStudentWithAverageGrade(double averageGrade) {
+        Student result = null;
+        for (Student student : students) {
+            if (student.getAverageGrade() == averageGrade) {
+                result = student;
+            }
+        }
+        return result;
     }
 
-    public Student getStudentWithMaxAverageGrade(double averageGrade) {
-        //TODO:
-        return null;
+    public Student getStudentWithMaxAverageGrade() {
+        double maxAverageGrade = 0.0;
+        for (Student student : students) {
+            if (student.getAverageGrade() > maxAverageGrade) {
+                maxAverageGrade = student.getAverageGrade();
+            }
+        }
+
+        return getStudentWithAverageGrade(maxAverageGrade);
     }
 
-    public void getStudentWithMinAverageGradeAndExpel() {
+    public Student getStudentWithMinAverageGrade() {
         //TODO:
+        double minAverageGrade = Integer.MAX_VALUE;
+
+        for (Student student : students) {
+            if (student.getAverageGrade() < minAverageGrade) {
+                minAverageGrade = student.getAverageGrade();
+            }
+        }
+        return getStudentWithAverageGrade(minAverageGrade);
+    }
+
+    public void expel(Student student) {
+        Iterator<Student> iterator = students.iterator();
+
+        while (iterator.hasNext()) {
+            if (iterator.next().equals(student)) {
+                iterator.remove();
+            }
+        }
     }
 }
+/*
+
+ */
