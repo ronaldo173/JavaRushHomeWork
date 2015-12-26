@@ -81,6 +81,13 @@ public class Human implements Alive {
 
     @Override
     public void live() {
+    }
 
+    String getPosition() {
+        return "Человек";
+    }
+
+    public void printData() {
+        System.out.println(getPosition() + ": " + name);
     }
 }
