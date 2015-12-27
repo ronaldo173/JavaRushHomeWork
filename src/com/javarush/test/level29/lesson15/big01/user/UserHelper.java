@@ -4,8 +4,6 @@ public class UserHelper {
     private User userAnya = new User("Аня", "Смирнова", 10);
     private User userRoma = new User("Рома", "Виноградов", 30);
 
-    private boolean isManAnya = false;
-    private boolean isManRoma = true;
 
     public void printUsers() {
         userAnya.printInfo();
@@ -25,13 +23,7 @@ public class UserHelper {
         result *= hasHouse ? 1.1 : 0.9;
         return result;
     }
-
-    /*
-    13.5.	Удаление присваиваний параметрам. Перепиши метод calculateRate(), чтобы он не
-    пытался менять входные параметры, а просто возвращал рассчитанное значение.
-     */
     public String getBoosName(User user) {
-        Work work = user.getWork();
-        return work.getBoss();
+        return user.getBoss();
     }
 }
