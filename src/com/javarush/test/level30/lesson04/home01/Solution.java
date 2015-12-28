@@ -1,5 +1,8 @@
 package com.javarush.test.level30.lesson04.home01;
 
+import java.util.concurrent.LinkedTransferQueue;
+import java.util.concurrent.TransferQueue;
+
 /* Экономим время
 1. Создайте Producer и Consumer (См. комментарий к методу main)
 2. Создайте методы toString, equals и hashCode в классе ShareItem. Для этого в теле класса ShareItem выполни:
@@ -21,26 +24,26 @@ package com.javarush.test.level30.lesson04.home01;
 6. Сверьте вывод с файлом output.txt
 7. Стек-трейс не выводите в консоль
 */
-//public class Solution {
-//    /*
-//    1. Создайте класс Producer. Для этого на красном имени класса нажмите Alt+Enter -> Create Class ...
-//    2. Станьте на имени аргумента в конструкторе (queue) и нажмите Alt+Enter -> Create Field for Parameter 'queue' -> Enter -> Enter
-//    3. Станьте на подчеркнутой строке - описании класса. Далее Alt+Enter -> Implement Methods -> Enter
-//    4. Проделайте п.1-3 для класса Consumer
-//     */
-//
-//    public static void main(String[] args) throws InterruptedException {
-//        TransferQueue<ShareItem> queue = new LinkedTransferQueue<>();
-//
-//        Thread producer = new Thread(new Producer(queue));
-//        Thread consumer = new Thread(new Consumer(queue));
-//        producer.start();
-//        consumer.start();
-//
-//        Thread.sleep(1500);
-//
-//        producer.interrupt();
-//        consumer.interrupt();
-//    }
-//
-//}
+public class Solution {
+    /*
+    1. Создайте класс Producer. Для этого на красном имени класса нажмите Alt+Enter -> Create Class ...
+    2. Станьте на имени аргумента в конструкторе (queue) и нажмите Alt+Enter -> Create Field for Parameter 'queue' -> Enter -> Enter
+    3. Станьте на подчеркнутой строке - описании класса. Далее Alt+Enter -> Implement Methods -> Enter
+    4. Проделайте п.1-3 для класса Consumer
+     */
+
+    public static void main(String[] args) throws InterruptedException {
+        TransferQueue<ShareItem> queue = new LinkedTransferQueue<>();
+
+        Thread producer = new Thread(new Producer(queue));
+        Thread consumer = new Thread(new Consumer(queue));
+        producer.start();
+        consumer.start();
+
+        Thread.sleep(1500);
+
+        producer.interrupt();
+        consumer.interrupt();
+    }
+
+}
