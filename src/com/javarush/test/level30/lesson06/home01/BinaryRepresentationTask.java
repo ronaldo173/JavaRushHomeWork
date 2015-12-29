@@ -1,6 +1,5 @@
 package com.javarush.test.level30.lesson06.home01;
 
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 
 /**
