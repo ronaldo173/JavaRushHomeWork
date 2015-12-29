@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 */
 public class Solution {
     public static void main(String[] args) {
-
-        System.out.println();
-
         System.out.println(getValue(1.1d, 1.2d));
     }
 
     public static BigDecimal getValue(double v1, double v2) {
-        return new BigDecimal(v1).add(new BigDecimal(v2));
+        BigDecimal b1, b2;
+        b1 = BigDecimal.valueOf(v1);
+        b2 = BigDecimal.valueOf(v2);
+        return b1.add(b2);
     }
 }

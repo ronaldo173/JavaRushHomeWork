@@ -42,7 +42,7 @@ public class Solution {
 
     static class Apt1Room implements Apartament {
         void clean1Room() {
-            System.out.println("1 room is cleaned");
+            System.out.println("1 game is cleaned");
         }
     }
 
