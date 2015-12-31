@@ -3,6 +3,7 @@ package com.javarush.test.level31.lesson02.home01;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
@@ -41,7 +42,7 @@ public class Solution {
         ifMore50bytesDeleteFilesOr(allFiles);
         if (allFiles.size() != 0) {
             sortList(allFiles);
-            rename(fileResult, newName);
+            fileResult = rename(fileResult, newName);
             writeFilesToFileWithSeparator(allFiles, fileResult);
         }
         deleteEmptyFolders(path);
@@ -73,20 +74,24 @@ public class Solution {
                     writer.write(reader.readLine());
                     writer.newLine();
                 }
-                writer.newLine();
+//                writer.newLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private static void rename(File fileResult, String newName) {
-        Path path = fileResult.toPath();
+    private static File rename(File fileForRename, String newName) {
+        String resPath = fileForRename.getAbsolutePath();
+        Path path = Paths.get(resPath);
+        Path move = null;
         try {
-            Files.move(path, path.resolveSibling(newName), StandardCopyOption.REPLACE_EXISTING);
+            move = Files.move(path, path.resolveSibling(newName), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        fileForRename.delete();
+        return move.toFile();
     }
 
     private static void sortList(List<File> allFiles) {
