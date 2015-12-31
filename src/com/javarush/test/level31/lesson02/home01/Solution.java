@@ -3,6 +3,7 @@ package com.javarush.test.level31.lesson02.home01;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 /* Проход по дереву файлов
@@ -18,12 +19,17 @@ import java.util.*;
 Все файлы имеют расширение txt.
 */
 public class Solution {
+
+    private static List<File> list;
+
     public static void main(String[] args) {
+        if (args.length < 2) {
+            return;
+        }
         String path = args[0];
         String resultFileAbsolutePath = args[1];
         String newName = "allFilesContent.txt";
         File fileResult = new File(resultFileAbsolutePath);
-
 
         if (path.equals(resultFileAbsolutePath)) {
             return;
@@ -32,16 +38,13 @@ public class Solution {
         if (allFiles.contains(fileResult)) {
             allFiles.remove(fileResult);
         }
-        copyAndSortOrDeleteFiles(allFiles);
-        sortList(allFiles);
-        try {
+        ifMore50bytesDeleteFilesOr(allFiles);
+        if (allFiles.size() != 0) {
+            sortList(allFiles);
             rename(fileResult, newName);
-        } catch (IOException e) {
-            e.printStackTrace();
+            writeFilesToFileWithSeparator(allFiles, fileResult);
         }
-        writeFilesToFileWithSeparator(allFiles, fileResult);
         deleteEmptyFolders(path);
-
     }
 
     private static void deleteEmptyFolders(String path) {
@@ -50,7 +53,7 @@ public class Solution {
         }
         File file = new File(path);
         if (file.isDirectory()) {
-            if (file.listFiles() == null) {
+            if (file.listFiles().length == 0) {
                 file.delete();
             } else {
                 for (File file1 : file.listFiles()) {
@@ -64,24 +67,26 @@ public class Solution {
         for (File file : allFiles) {
             try (
                     BufferedReader reader = new BufferedReader(new FileReader(file));
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(fileResult))
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(fileResult, true))
             ) {
-                String temp = null;
-                while ((temp = reader.readLine()) != null) {
-                    writer.write(temp);
+                while (reader.ready()) {
+                    writer.write(reader.readLine());
+                    writer.newLine();
                 }
                 writer.newLine();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private static void rename(File fileResult, String newName) throws IOException {
+    private static void rename(File fileResult, String newName) {
         Path path = fileResult.toPath();
-        Files.move(path, path.resolveSibling(newName));
+        try {
+            Files.move(path, path.resolveSibling(newName), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void sortList(List<File> allFiles) {
@@ -93,35 +98,30 @@ public class Solution {
         });
     }
 
-    private static void copyAndSortOrDeleteFiles(List<File> allFiles) {
+    private static void ifMore50bytesDeleteFilesOr(List<File> allFiles) {
 
         Iterator<File> iterator = allFiles.iterator();
         while (iterator.hasNext()) {
             File next = iterator.next();
-            if (next.length() > 50) {
-                iterator.next().delete();
+            if (next.length() > 50 && !next.isDirectory()) {
+                next.delete();
                 iterator.remove();
             }
         }
     }
 
     private static List<File> getAllFilesByPath(String path) {
-        Queue<File> queue = new PriorityQueue<>();
-        List<File> list = new ArrayList<>();
 
-        queue.add(new File(path));
-
-        while (!queue.isEmpty()) {
-
-            File poll = queue.poll();
-            if (poll.isDirectory()) {
-                for (File file : poll.listFiles()) {
-                    queue.add(file);
-                }
-            } else {
-                list.add(poll);
-            }
+        if (list == null) {
+            list = new ArrayList<>();
         }
+        File file = new File(path);
+        if (file.isDirectory()) {
+            for (File file1 : file.listFiles()) {
+                getAllFilesByPath(file1.getAbsolutePath());
+            }
+        } else list.add(file);
+
         return list;
     }
 }
