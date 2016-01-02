@@ -23,6 +23,7 @@ public class UserHelper {
         result *= hasHouse ? 1.1 : 0.9;
         return result;
     }
+
     public String getBoosName(User user) {
         return user.getBoss();
     }

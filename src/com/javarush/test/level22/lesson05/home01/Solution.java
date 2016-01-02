@@ -17,6 +17,7 @@ public class Solution {
     private Thread thread1;
     private Thread thread2;
     private Thread thread3;
+
     public Solution() {
         initThreads();
     }

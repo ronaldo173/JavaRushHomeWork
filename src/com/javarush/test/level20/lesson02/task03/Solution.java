@@ -1,7 +1,9 @@
 package com.javarush.test.level20.lesson02.task03;
 
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /* Знакомство с properties
 В методе fillInPropertiesMap считайте имя файла с консоли и заполните карту properties данными из файла.

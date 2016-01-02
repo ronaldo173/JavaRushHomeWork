@@ -58,6 +58,7 @@ public class Solution {
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
             new Thread() {
                 private final Collection batch = new ArrayList(MAX_BATCH_SIZE);
+
                 {
                     setDaemon(true);
                 }

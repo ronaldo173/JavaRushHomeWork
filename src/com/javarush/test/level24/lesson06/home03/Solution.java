@@ -4,6 +4,7 @@ import java.util.List;
 
 interface Item {
     int getId();
+
     double getPrice();
 
     String getTM();
@@ -11,6 +12,7 @@ interface Item {
 
 interface Jeans extends Item {
     int getLength();
+
     int getSize();
 }
 
