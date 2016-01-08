@@ -1,10 +1,12 @@
 package com.javarush.test.level20.lesson10.bonus04;
 
+/*
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.List;
 import java.util.function.Consumer;
 
+*/
 /* Свой список
 Посмотреть, как реализован LinkedList.
 Элементы следуют так: 1->2->3->4  и так 4->3->2->1
@@ -52,7 +54,8 @@ import java.util.function.Consumer;
 Доступ по индексу запрещен, воспользуйтесь при необходимости UnsupportedOperationException
 Должно быть наследование AbstractList<String>, List<String>, Cloneable, Serializable
 Метод main в тестировании не участвует
-*/
+*//*
+
 public class Solution extends AbstractList<String> implements List<String>, Cloneable, Serializable {
     public static void main(String[] args) {
         List<String> list = new Solution();
@@ -85,3 +88,4 @@ public class Solution extends AbstractList<String> implements List<String>, Clon
 
     }
 }
+*/
