@@ -1,11 +1,8 @@
 package com.javarush.test.level32.lesson06.task01;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /* Генератор паролей
 Реализуйте логику метода getPassword, который должен возвращать ByteArrayOutputStream, в котором будут байты пароля.
@@ -28,55 +25,18 @@ public class Solution {
 
     public static ByteArrayOutputStream getPassword() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < 8; i++) {
-            builder.append(AB.charAt(new Random().nextInt(AB.length())));
+        Random random = new Random();
+        for (int i = 0; i < 3; i++) {
+            byteArrayOutputStream.write(48 + random.nextInt(10));
         }
-        if (hashSet.contains(builder) || countDigitsInBuilder(builder)
-                || countLetterLowUpperCaseInBuilder(builder)) {
-            byteArrayOutputStream = getPassword();
+        for (int i = 0; i < 3; i++) {
+            byteArrayOutputStream.write(65 + random.nextInt(26));
         }
-        hashSet.add(builder);
-        try {
-            byteArrayOutputStream.write(builder.toString().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = 0; i < 2; i++) {
+            byteArrayOutputStream.write(97 + random.nextInt(26));
         }
         return byteArrayOutputStream;
     }
 
-    private static boolean countLetterLowUpperCaseInBuilder(StringBuilder builder) {
-        Pattern letterLowCasePattern = Pattern.compile("[a-z]");
-        Matcher lowMatcher = letterLowCasePattern.matcher(builder);
-        int lowCount = 0;
-        while (lowMatcher.find()) {
-            lowCount++;
-        }
-        if (lowCount < 1) {
-            return true;
-        }
-
-        Pattern letterUpperCase = Pattern.compile("[A-Z]");
-        Matcher upperMatcher = letterUpperCase.matcher(builder);
-        int upperCount = 0;
-        while (upperMatcher.find()) {
-            upperCount++;
-        }
-        if (upperCount < 1) {
-            return true;
-        }
-        return false;
-    }
-
-
-    private static boolean countDigitsInBuilder(StringBuilder builder) {
-        Pattern digitPattern = Pattern.compile("\\d");
-        Matcher digitMatcher = digitPattern.matcher(builder);
-        int digitCount = 0;
-        while (digitMatcher.find()) {
-            digitCount++;
-        }
-        return digitCount < 1 ? true : false;
-    }
 }
