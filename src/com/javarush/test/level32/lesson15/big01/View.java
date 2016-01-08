@@ -39,11 +39,6 @@ public class View extends JFrame implements ActionListener {
         this.controller = controller;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
     public void exit() {
         controller.exit();
     }
@@ -61,9 +56,6 @@ public class View extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void selectedTabChanged() {
-
-    }
 
     public void initEditor() {
         htmlTextPane.setContentType("text/html");
@@ -133,15 +125,59 @@ public class View extends JFrame implements ActionListener {
     public void showAbout() {
         JOptionPane.showMessageDialog(getContentPane(), "created by ME!", "about", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    public void selectedTabChanged() {
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        switch (selectedIndex) {
+            case 0:
+                controller.setPlainText(plainTextPane.getText());
+                break;
+            case 1:
+                plainTextPane.setText(controller.getPlainText());
+        }
+        resetUndo();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        String actionCommand = actionEvent.getActionCommand();
+
+        switch (actionCommand) {
+            case "Новый":
+                controller.createNewDocument();
+                break;
+            case "Открыть":
+                controller.openDocument();
+                break;
+            case "Сохранить":
+                controller.saveDocument();
+                break;
+            case "Сохранить как...":
+                controller.saveDocumentAs();
+                break;
+            case "Выход":
+                controller.exit();
+                break;
+            case "О программе":
+                showAbout();
+                break;
+        }
+    }
 }
 /*
-14.1.	Добавь в класс представления метод selectHtmlTab(). Он должен:
-14.1.1.	Выбирать html вкладку (переключаться на нее).
-14.1.2.	Сбрасывать все правки с помощью метода, который ты реализовал ранее.
-14.2.	Добавь в класс контроллера геттер для модели, в нашем случае это поле document.
-14.3.	Добавь в представление метод update(), который должен получать документ у
-контроллера и устанавливать его в панель редактирования htmlTextPane.
-14.4.	Добавь в представление метод showAbout(), который должен показывать диалоговое
-окно с информацией о программе. Информацию придумай сам, а вот тип сообщения
-должен быть JOptionPane.INFORMATION_MESSAGE.
+Реализуем метод actionPerformed(ActionEvent actionEvent) у представления, этот метод
+наследуется от интерфейса ActionListener и будет вызваться при выборе пунктов меню, у
+которых наше представление указано в виде слушателя событий.
+19.1.	Получи из события команду с помощью метода getActionCommand(). Это будет
+обычная строка. По этой строке ты можешь понять какой пункт меню создал данное
+событие.
+19.2.	Если это команда "Новый", вызови у контроллера метод createNewDocument(). В этом
+пункте и далее, если необходимого метода в контроллере еще нет - создай заглушки.
+19.3.	Если это команда "Открыть", вызови метод openDocument().
+19.4.	Если "Сохранить", то вызови saveDocument().
+19.5.	Если "Сохранить как..." - saveDocumentAs().
+19.6.	Если "Выход" - exit().
+19.7.	Если "О программе", то вызови метод showAbout() у представления.
+Проверь, что заработали пункты меню Выход и О программе.
+
  */
