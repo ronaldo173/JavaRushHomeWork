@@ -19,7 +19,7 @@ public class SuperscriptAction extends StyledEditorKit.StyledTextAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         JEditorPane editorPane = getEditor(e);
-        if (editorPane!=null){
+        if (editorPane != null) {
             MutableAttributeSet mutableAttributeSet = getStyledEditorKit(editorPane).getInputAttributes();
             SimpleAttributeSet simpleAttributeSet = new SimpleAttributeSet();
             StyleConstants.setSuperscript(simpleAttributeSet, !StyleConstants.isSuperscript(mutableAttributeSet));

@@ -5,6 +5,7 @@ import com.javarush.test.level32.lesson15.big01.listeners.TabbedPaneChangeListen
 import com.javarush.test.level32.lesson15.big01.listeners.UndoListener;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
 import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -98,31 +99,49 @@ public class View extends JFrame implements ActionListener {
         return undoManager.canRedo();
     }
 
-    public void undo(){
+    public void undo() {
         undoManager.undo();
     }
-    public void redo(){
+
+    public void redo() {
         undoManager.redo();
     }
 
     public UndoListener getUndoListener() {
         return undoListener;
     }
-    public void resetUndo(){
+
+    public void resetUndo() {
         undoManager.discardAllEdits();
+    }
+
+    public boolean isHtmlTabSelected() {
+        return tabbedPane.getSelectedIndex() == 0 ? true : false;
+    }
+
+    public void selectHtmlTab() {
+//        tabbedPane.setSelectedComponent(tabbedPane.getComponentAt(0));
+        tabbedPane.setSelectedIndex(0);
+        resetUndo();
+    }
+
+    public void update() {
+        HTMLDocument document = controller.getDocument();
+        htmlTextPane.setDocument(document);
+    }
+
+    public void showAbout() {
+        JOptionPane.showMessageDialog(getContentPane(), "created by ME!", "about", JOptionPane.INFORMATION_MESSAGE);
     }
 }
 /*
-11.4.	Добавь в представление поле UndoListener undoListener, проинициализируй его
-используя undoManager.
-11.5.	Добавь в представление методы:
-11.5.1.	void undo() - отменяет последнее действие. Реализуй его используя undoManager.
-Метод не должен кидать исключений, логируй их.
-11.5.2.	void redo() - возвращает ранее отмененное действие. Реализуй его по аналогии с
-предыдущим пунктом.
-11.5.3.	Реализуй методы boolean canUndo() и boolean canRedo() используя undoManager.
-11.5.4.	Реализуй геттер для undoListener.
-11.5.5.	Добавь и реализуй метод void resetUndo(), который должен сбрасывать все правки в
-менеджере undoManager.
-
+14.1.	Добавь в класс представления метод selectHtmlTab(). Он должен:
+14.1.1.	Выбирать html вкладку (переключаться на нее).
+14.1.2.	Сбрасывать все правки с помощью метода, который ты реализовал ранее.
+14.2.	Добавь в класс контроллера геттер для модели, в нашем случае это поле document.
+14.3.	Добавь в представление метод update(), который должен получать документ у
+контроллера и устанавливать его в панель редактирования htmlTextPane.
+14.4.	Добавь в представление метод showAbout(), который должен показывать диалоговое
+окно с информацией о программе. Информацию придумай сам, а вот тип сообщения
+должен быть JOptionPane.INFORMATION_MESSAGE.
  */
