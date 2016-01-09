@@ -20,11 +20,3 @@ public class FrameListener extends WindowAdapter {
         view.exit();
     }
 }
-/*
-3.2.	Добавь класс FrameListener в пакет listeners. Он должен:
-3.2.1.	Быть унаследован от WindowAdapter.
-3.2.2.	Иметь поле View.
-3.2.3.	В конструкторе принимать View и инициализировать внутреннее поле.
-3.2.4.	Иметь переопределенный метод windowClosing(WindowEvent windowEvent), который
-должен вызывать exit() у представления.
- */

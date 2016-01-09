@@ -3,10 +3,7 @@ package com.javarush.test.level32.lesson15.big01;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 
 /**
  * Created by Santer on 07.01.2016.
@@ -87,10 +84,16 @@ public class Controller {
 
 
     public void saveDocument() {
-    }
-
-    public void openDocument() {
-
+        if (currentFile != null) {
+            view.selectHtmlTab();
+            try (FileWriter fileWriter = new FileWriter(currentFile)) {
+                new HTMLEditorKit().write(fileWriter, document, 0, document.getLength());
+            } catch (Exception e) {
+                ExceptionHandler.log(e);
+            }
+        } else {
+            saveDocumentAs();
+        }
     }
 
     public void saveDocumentAs() {
@@ -115,20 +118,27 @@ public class Controller {
             ExceptionHandler.log(e);
         }
     }
+
+    public void openDocument() {
+        view.selectHtmlTab();
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setFileFilter(new HTMLFileFilter());
+        jFileChooser.setDialogTitle("Open File");
+        int openDialog = jFileChooser.showOpenDialog(view);
+
+        try {
+            if (openDialog == JFileChooser.APPROVE_OPTION) {
+                currentFile = jFileChooser.getSelectedFile();
+                resetDocument();
+                view.setTitle(currentFile.getName());
+
+                try (FileReader fileReader = new FileReader(currentFile)) {
+                    new HTMLEditorKit().read(fileReader, document, 0);
+                    view.resetUndo();
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.log(e);
+        }
+    }
 }
-/*
-Реализуем в контроллере метод для сохранения файла под новым именем saveDocumentAs().
-Реализация должна:
-22.1.	Переключать представление на html вкладку.
-22.2.	Создавать новый объект для выбора файла JFileChooser.
-22.3.	Устанавливать ему в качестве фильтра объект HTMLFileFilter.
-22.4.	Показывать диалоговое окно "Save File" для выбора файла.
-22.5.	Если пользователь подтвердит выбор файла:
-22.5.1.	Сохранять выбранный файл в поле currentFile.
-22.5.2.	Устанавливать имя файла в качестве заголовка окна представления.
-22.5.3.	Создавать FileWriter на базе currentFile.
-22.5.4.	Переписывать данные из документа document в объекта FileWriter-а аналогично тому,
-как мы это делали в методе getPlainText().
-22.6.	Метод не должен кидать исключения.
-Проверь работу пункта меню Сохранить как...
- */
