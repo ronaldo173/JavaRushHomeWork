@@ -40,13 +40,3 @@ public class HashMapStorageStrategy implements StorageStrategy {
         return data.get(key);
     }
 }
-/*
-Давай напишем наше первое хранилище (стратегию хранилища). Внутри оно будет
-содержать обычный HashMap. Все стратегии будем хранить в пакете strategies.
-5.1.	Создай класс HashMapStorageStrategy, реализующий интерфейс StorageStrategy.
-5.2.	Добавь в класс поле HashMap<Long, String> data. В нем будут храниться наши
-данные.
-5.3.	Реализуй в классе все необходимые методы. Реализации методов должны
-использовать поле data. Дополнительные поля не создавать.
-
- */
