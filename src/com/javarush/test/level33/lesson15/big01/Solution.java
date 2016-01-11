@@ -2,6 +2,7 @@ package com.javarush.test.level33.lesson15.big01;
 
 
 import com.javarush.test.level33.lesson15.big01.strategies.HashMapStorageStrategy;
+import com.javarush.test.level33.lesson15.big01.strategies.OurHashMapStorageStrategy;
 import com.javarush.test.level33.lesson15.big01.strategies.StorageStrategy;
 
 import java.util.Date;
@@ -61,6 +62,8 @@ public class Solution {
 
     public static void main(String[] args) {
         testStrategy(new HashMapStorageStrategy(), 10000);
+
+        testStrategy(new OurHashMapStorageStrategy(), 10000);
     }
 }
 /*
