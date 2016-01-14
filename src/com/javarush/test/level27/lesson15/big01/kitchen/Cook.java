@@ -1,6 +1,7 @@
 package com.javarush.test.level27.lesson15.big01.kitchen;
 
-import com.javarush.test.level31.lesson15.big01.ConsoleHelper;
+
+import com.javarush.test.level27.lesson15.big01.ConsoleHelper;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -17,20 +18,13 @@ public class Cook implements Observer {
 
     @Override
     public String toString() {
-        return "Cook{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        ConsoleHelper.writeMessage("Start cooking - " + arg);
+        Order order = (Order) arg;
+        ConsoleHelper.writeMessage("Start cooking - " + order);
+
     }
 }
-/*
-3. Метод void update(Observable observable, Object arg), который необходимо реализовать, принимает два параметра.
--observable - объект, который отправил нам значение
--arg - само значение, в нашем случае - это объект Order
-На данном этапе мы сымитируем обработку и выведем в консоль "Start cooking - " + order
-
- */

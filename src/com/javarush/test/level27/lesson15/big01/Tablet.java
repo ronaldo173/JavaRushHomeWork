@@ -1,15 +1,15 @@
 package com.javarush.test.level27.lesson15.big01;
 
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
-import javafx.beans.InvalidationListener;
 
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Created by Santer on 14.01.2016.
  */
-public class Tablet implements javafx.beans.Observable {
+public class Tablet extends Observable {
     private static Logger logger = Logger.getLogger(Tablet.class.getName());
     private final int number;
 
@@ -21,9 +21,10 @@ public class Tablet implements javafx.beans.Observable {
         try {
             Order order = new Order(this);
             ConsoleHelper.writeMessage(order.toString());
+            setChanged();
+            notifyObservers(order);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
-            e.printStackTrace();
         }
     }
 
@@ -38,21 +39,5 @@ public class Tablet implements javafx.beans.Observable {
                 '}';
     }
 
-    @Override
-    public void addListener(InvalidationListener listener) {
 
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-
-    }
 }
-/*
-3. Метод void update(Observable observable, Object arg), который необходимо реализовать, принимает два параметра.
--observable - объект, который отправил нам значение
--arg - само значение, в нашем случае - это объект Order
-На данном этапе мы сымитируем обработку и выведем в консоль "Start cooking - " + order
-
-
- */
