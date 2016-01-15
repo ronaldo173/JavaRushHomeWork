@@ -10,7 +10,7 @@ import com.javarush.test.level36.lesson04.big01.view.UsersView;
 public class Controller {
     private Model model;
     private UsersView usersView;
-    private EditUserView editUserView;
+    private EditUserView editUserView = new EditUserView();
 
     public void setModel(Model model) {
         this.model = model;
@@ -25,8 +25,13 @@ public class Controller {
 
     public void onShowAllDeletedUsers() {
         model.loadDeletedUsers();
-//        model.getModelData().setDisplayDeletedUserList(true);
         usersView.refresh(model.getModelData());
+    }
+
+    //**
+    public void onOpenUserEditForm(long userId) {
+        model.loadUserById(userId);
+        editUserView.refresh(model.getModelData());
     }
 
     public void setUsersView(UsersView usersView) {

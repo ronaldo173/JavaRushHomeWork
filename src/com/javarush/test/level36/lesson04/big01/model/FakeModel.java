@@ -27,6 +27,11 @@ public class FakeModel implements Model {
     public void loadDeletedUsers() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void loadUserById(long userId) {
+        throw new UnsupportedOperationException();
+    }
 }
 /*
 3. В пакете model создай класс FakeModel, реализующий Model. Он нам понадобится на начальном этапе.

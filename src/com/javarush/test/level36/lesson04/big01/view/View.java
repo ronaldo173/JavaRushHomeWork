@@ -10,6 +10,8 @@ public interface View {
     void refresh(ModelData modelData);
 
     void setController(Controller controller);
+
+
 }
 /*
 5. В интерфейс View добавь два метода void refresh(ModelData modelData) и void setController(Controller controller)

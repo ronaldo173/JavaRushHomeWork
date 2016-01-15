@@ -32,4 +32,12 @@ public class MainModel implements Model {
         modelData.setDisplayDeletedUserList(true);
 
     }
+
+    //*
+    public void loadUserById(long userId) {
+        User user = userService.getUsersById(userId);
+//        System.out.println(user);
+        modelData.setActiveUser(user);
+//        modelData.setDisplayDeletedUserList(false);
+    }
 }

@@ -39,6 +39,10 @@ public class UsersView implements View {
         controller.onShowAllDeletedUsers();
 
     }
+
+    public void fireEventOpenUserEditForm(long id) {
+        controller.onOpenUserEditForm(id);
+    }
 }
 /*
 5. Измени метод refresh в UsersView так, чтобы он отображал "All users:" либо "All deleted users:"

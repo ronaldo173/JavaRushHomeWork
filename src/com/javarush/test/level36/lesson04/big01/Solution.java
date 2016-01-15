@@ -18,8 +18,9 @@ public class Solution {
         usersView.fireEventShowAllUsers();
 
         usersView.fireEventShowDeletedUsers();
+        usersView.fireEventOpenUserEditForm(126);
     }
 }
 /*
-2. Добавь в Solution.main вызов нового метода, который ты поместил во Вью.
+2. Добавь в метод main открытие формы редактирования для пользователя с id=126
  */
