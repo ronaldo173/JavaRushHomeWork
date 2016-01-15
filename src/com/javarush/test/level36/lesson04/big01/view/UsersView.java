@@ -13,19 +13,18 @@ public class UsersView implements View {
 
     @Override
     public void refresh(ModelData modelData) {
-        System.out.println("All users:");
+        if (!modelData.isDisplayDeletedUserList()) {
+
+            System.out.println("All users:");
+        } else {
+            System.out.println("All deleted users:");
+        }
         for (User user : modelData.getUsers()) {
             System.out.println("\t" + user);
         }
         System.out.println("===================================================");
     }
-/*
-3. Реализуй логику метода refresh:
-3.1. Выведи в консоль фразу "All users:".
-3.2. Выведи в консоль всех юзеров, которые есть в modelData.
- Перед каждым юзером сделай отступ в виде табуляции.
-3.3. В конце выведи визуальный разделитель данных
- */
+
 
     @Override
     public void setController(Controller controller) {
@@ -38,5 +37,11 @@ public class UsersView implements View {
 
     public void fireEventShowDeletedUsers() {
         controller.onShowAllDeletedUsers();
+
     }
 }
+/*
+5. Измени метод refresh в UsersView так, чтобы он отображал "All users:" либо "All deleted users:"
+в зависимости от того, какие юзера находятся в списке. Добавь в необходимые методы модели изменение displayDeletedUserList.
+
+ */

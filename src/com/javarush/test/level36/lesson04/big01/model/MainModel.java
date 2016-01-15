@@ -22,18 +22,14 @@ public class MainModel implements Model {
     public void loadUsers() {
         List<User> usersBetweenLevels = userService.getUsersBetweenLevels(1, 100);
         modelData.setUsers(usersBetweenLevels);
+        modelData.setDisplayDeletedUserList(false);
     }
 
     //**
     public void loadDeletedUsers() {
         List<User> users = userService.getAllDeletedUsers();
         modelData.setUsers(users);
+        modelData.setDisplayDeletedUserList(true);
+
     }
 }
-/*
-
-3. Реализуй логику метода loadUsers:
-3.1. Достань всех пользователей между 1 и 100 уровнями
-3.2. Положи всех пользователей в modelData
-
- */

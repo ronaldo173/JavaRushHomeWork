@@ -1,6 +1,7 @@
 package com.javarush.test.level36.lesson04.big01.controller;
 
 import com.javarush.test.level36.lesson04.big01.model.Model;
+import com.javarush.test.level36.lesson04.big01.view.EditUserView;
 import com.javarush.test.level36.lesson04.big01.view.UsersView;
 
 /**
@@ -9,6 +10,7 @@ import com.javarush.test.level36.lesson04.big01.view.UsersView;
 public class Controller {
     private Model model;
     private UsersView usersView;
+    private EditUserView editUserView;
 
     public void setModel(Model model) {
         this.model = model;
@@ -23,19 +25,23 @@ public class Controller {
 
     public void onShowAllDeletedUsers() {
         model.loadDeletedUsers();
+//        model.getModelData().setDisplayDeletedUserList(true);
         usersView.refresh(model.getModelData());
     }
 
     public void setUsersView(UsersView usersView) {
         this.usersView = usersView;
+    }
 
+    public void setEditUserView(EditUserView editUserView) {
+        this.editUserView = editUserView;
     }
 }
 
 /*
-6. Запусти main. Упс, ничего не вывело :(
-Это получилось потому, что данные пришли с сервера, обновились в ModelData, но Вью ничего о них не знает.
-Вью сама не умеет себя обновлять. Это делает Контроллер.
-Пойди в контроллер и добавь обновление данных во Вью.
-Напомню, данные хранятся в Моделе.
+3. Создай в контроллере поле EditUserView editUserView с сеттером.
+
+Когда наши данные выводятся в консоль, то совсем не понятно, список каких юзеров - удаленных или нет - выводится.
+Давай сделаем так, чтобы Вью отображала эту информацию. Все данные для отображения хранятся в Моделе. Поэтому:
+4
  */
