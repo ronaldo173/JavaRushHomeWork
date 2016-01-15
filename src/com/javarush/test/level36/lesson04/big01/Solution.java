@@ -16,9 +16,10 @@ public class Solution {
         controller.setModel(model);
         controller.setUsersView(usersView);
         usersView.fireEventShowAllUsers();
+
+        usersView.fireEventShowDeletedUsers();
     }
 }
 /*
-4. Обнови Solution.main: замени FakeModel на MainModel.
-Преимущества MVC в том, что в любой момент времени легко можно заменить любую часть паттерна.
+2. Добавь в Solution.main вызов нового метода, который ты поместил во Вью.
  */

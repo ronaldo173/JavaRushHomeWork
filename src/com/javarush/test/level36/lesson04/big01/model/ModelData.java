@@ -15,6 +15,7 @@ public class ModelData {
         return users;
     }
 
+
     public void setUsers(List<User> users) {
         this.users = users;
     }

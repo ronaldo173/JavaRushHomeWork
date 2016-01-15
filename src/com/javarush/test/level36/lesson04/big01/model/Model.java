@@ -7,8 +7,12 @@ public interface Model {
     ModelData getModelData();
 
     void loadUsers();
+
+    void loadDeletedUsers();
 }
 /*
-2. Используя любую модель должна быть возможность получить все необходимые данные для отображения. Поэтому
-в пакете model создай интерфейс Model, который должен содержать метод ModelData getModelData().
+
+3. Добавь в интерфейс Model метод, который ты поместил в Модель, реализуй его в FakeModel:
+выброси UnsupportedOperationException
+
  */

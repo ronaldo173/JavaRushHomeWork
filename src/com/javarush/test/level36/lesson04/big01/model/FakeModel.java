@@ -22,6 +22,11 @@ public class FakeModel implements Model {
         list.add(new User("Second", 2, 2));
         modelData.setUsers(list);
     }
+
+    @Override
+    public void loadDeletedUsers() {
+        throw new UnsupportedOperationException();
+    }
 }
 /*
 3. В пакете model создай класс FakeModel, реализующий Model. Он нам понадобится на начальном этапе.
