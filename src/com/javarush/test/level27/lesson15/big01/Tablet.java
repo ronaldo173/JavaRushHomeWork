@@ -1,5 +1,6 @@
 package com.javarush.test.level27.lesson15.big01;
 
+import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 
 import java.util.Observable;
@@ -23,6 +24,7 @@ public class Tablet extends Observable {
             ConsoleHelper.writeMessage(order.toString());
             setChanged();
             notifyObservers(order);
+            new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();///XZ
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
         }

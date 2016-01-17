@@ -9,6 +9,7 @@ public class Advertisement {
     private long initialAmount;
     private int hits;
     private int duration;
+    private long amountPerOneDisplaying;
 
     public Advertisement(Object content, String name, long initialAmount, int hits, int duration) {
         this.content = content;
@@ -16,15 +17,25 @@ public class Advertisement {
         this.initialAmount = initialAmount;
         this.hits = hits;
         this.duration = duration;
+
+        this.amountPerOneDisplaying = initialAmount / hits;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public long getAmountPerOneDisplaying() {
+        return amountPerOneDisplaying;
     }
 }
 /*
-2.Создадим класс Advertisement(Рекламное объявление) в пакете ad, у к оторого будут следующие поля:
-Object content - видео
-String name - имя/название
-long initialAmount - начальная сумма, стоимость рекламы в копейках. Используем long, чтобы избежать проблем с округлением
-int hits - количество оплаченных показов
-int duration - продолжительность в секундах
-Модификаторы доступа расставьте самостоятельно.
+1. В классе Advertisement создайте поле long amountPerOneDisplaying, которое инициализируйте в конструкторе.
+Оно должно равняться стоимости одного показа рекламного объявления в копейках.
 
+2. В классе Advertisement создайте геттеры для полей name, duration и amountPerOneDisplaying
  */
