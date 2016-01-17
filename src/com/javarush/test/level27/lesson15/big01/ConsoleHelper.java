@@ -31,7 +31,11 @@ public class ConsoleHelper {
         String temp = readString();
 
         while (!temp.equals("exit")) {
-            list.add(Dish.valueOf(temp));
+            try {
+                list.add(Dish.valueOf(temp));
+            } catch (Exception e) {
+                ConsoleHelper.writeMessage(temp + " is not detected");
+            }
             temp = readString();
         }
         return list;
