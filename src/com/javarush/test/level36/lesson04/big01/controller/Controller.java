@@ -34,6 +34,15 @@ public class Controller {
         editUserView.refresh(model.getModelData());
     }
 
+    //**
+    public void onUserDelete(long id) {
+//        model.loadUserById(id);
+        model.deleteUserById(id);
+//        editUserView.refresh(model.getModelData());
+        usersView.refresh(model.getModelData());
+    }
+
+
     public void setUsersView(UsersView usersView) {
         this.usersView = usersView;
     }
@@ -44,9 +53,5 @@ public class Controller {
 }
 
 /*
-3. Создай в контроллере поле EditUserView editUserView с сеттером.
 
-Когда наши данные выводятся в консоль, то совсем не понятно, список каких юзеров - удаленных или нет - выводится.
-Давай сделаем так, чтобы Вью отображала эту информацию. Все данные для отображения хранятся в Моделе. Поэтому:
-4
  */

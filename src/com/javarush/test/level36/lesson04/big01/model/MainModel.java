@@ -21,8 +21,12 @@ public class MainModel implements Model {
     @Override
     public void loadUsers() {
         List<User> usersBetweenLevels = userService.getUsersBetweenLevels(1, 100);
-        modelData.setUsers(usersBetweenLevels);
+        modelData.setUsers(filter(usersBetweenLevels));
         modelData.setDisplayDeletedUserList(false);
+    }
+
+    private List<User> filter(List<User> users) {
+        return userService.filterOnlyActiveUsers(users);
     }
 
     //**
@@ -36,8 +40,18 @@ public class MainModel implements Model {
     //*
     public void loadUserById(long userId) {
         User user = userService.getUsersById(userId);
-//        System.out.println(user);
         modelData.setActiveUser(user);
-//        modelData.setDisplayDeletedUserList(false);
+    }
+
+    public void deleteUserById(long id) {
+        userService.deleteUser(id);
+        modelData.setUsers(filter(userService.getUsersBetweenLevels(1, 100)));
+        modelData.setDisplayDeletedUserList(false);
     }
 }
+/*
+3. Отрефактори MainModel. Теперь, когда есть удаленные юзеры, часть методов стала работать неправильно.
+Почти во всех методах, где требуется список пользователей, нужно работать только с активными(живыми) юзерами.
+Вынеси в отдельный приватный метод получение списка всех юзеров и фильтрацию живых юзеров.
+Отрефактори все методы, которые используют список юзеров. Они должны использовать список живых юзеров.
+ */
