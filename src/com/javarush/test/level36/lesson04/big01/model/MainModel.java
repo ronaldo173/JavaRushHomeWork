@@ -48,6 +48,12 @@ public class MainModel implements Model {
         modelData.setUsers(filter(userService.getUsersBetweenLevels(1, 100)));
         modelData.setDisplayDeletedUserList(false);
     }
+
+    public void changeUserData(String name, long id, int level) {
+        userService.createOrUpdateUser(name, id, level);
+        modelData.setUsers(filter(userService.getUsersBetweenLevels(1, 100)));
+        modelData.setDisplayDeletedUserList(false);
+    }
 }
 /*
 3. Отрефактори MainModel. Теперь, когда есть удаленные юзеры, часть методов стала работать неправильно.

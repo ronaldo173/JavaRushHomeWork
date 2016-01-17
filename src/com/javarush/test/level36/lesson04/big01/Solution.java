@@ -25,6 +25,8 @@ public class Solution {
         editUserView.setController(controller);
         editUserView.fireEventUserDeleted(124);
 
+        editUserView.fireEventUserChanged("Ivanov", 123, 22);
+
     }
 }
 /*
