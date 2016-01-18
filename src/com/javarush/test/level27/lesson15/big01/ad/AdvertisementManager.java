@@ -23,10 +23,8 @@ public class AdvertisementManager {
                 int result = Long.compare(o1.getAmountPerOneDisplaying(), o2.getAmountPerOneDisplaying());
                 if (result != 0)
                     return -result;
-
                 long oneSecondCost1 = o1.getAmountPerOneDisplaying() * 1000 / o1.getDuration();
                 long oneSecondCost2 = o2.getAmountPerOneDisplaying() * 1000 / o2.getDuration();
-
                 return Long.compare(oneSecondCost1, oneSecondCost2);
             }
         });
