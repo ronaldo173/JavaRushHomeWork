@@ -145,18 +145,17 @@ public class Client {
         }
 
         public void run() {
-            String serverAddress = getServerAddress();
-            int serverPort = getServerPort();
-            Socket socket = null;
-            Connection connection = null;
-
             try {
-                socket = new Socket(serverAddress, serverPort);
+                String address = getServerAddress();
+                int port = getServerPort();
+                Socket socket = new Socket(address, port);
                 connection = new Connection(socket);
                 clientHandshake();
                 clientMainLoop();
-            } catch (IOException | ClassNotFoundException e) {
-                notifyConnectionStatusChanged(true);
+            } catch (IOException e) {
+                notifyConnectionStatusChanged(false);
+            } catch (ClassNotFoundException e) {
+                notifyConnectionStatusChanged(false);
             }
         }
     }

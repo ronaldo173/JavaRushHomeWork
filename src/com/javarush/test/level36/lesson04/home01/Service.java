@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Alex on 14.01.2016.
+ * Created by Santer on 16.01.2016.
  */
 public class Service {
     public List<String> getData() {

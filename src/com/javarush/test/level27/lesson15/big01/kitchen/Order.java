@@ -13,13 +13,12 @@ public class Order {
     private Tablet tablet;
     private List<Dish> dishes;
 
-    public Order(Tablet tablet) {
-        try {
+    public Order(Tablet tablet) throws IOException {
+
             this.tablet = tablet;
             this.dishes = ConsoleHelper.getAllDishesForOrder();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
     }
 
     @Override
@@ -35,14 +34,27 @@ public class Order {
             return "Your order: " + dishes + " of Tablet{number=" + tablet.getNumber() + "}";
         }
     }
+
+    public int getTotalCookingTime() {
+        int res = 0;
+
+        for (Dish dish : dishes) {
+            res += dish.getDuration();
+        }
+        return res;
+    }
+
+    public boolean isEmpty() {
+        return dishes.isEmpty();
+    }
 }
 /*
-3. Вернемся к классу Order: в нем есть ссылка на планшет, и еще есть список выбранных блюд.
-Создайте поле dishes - список блюд. Инициализируйте его в конструкторе, вызвав метод getAllDishesForOrder из ConsoleHelper.
+3. Запустим приложение и сразу введем 'exit'. Вывод получился не очень красивым.
+Сделайте так, что если в заказе нет блюд, то чтобы он не отправлялся повару. Найдите это место и реализуйте логику.
+В классе Order создайте вспомогательный метод  boolean isEmpty(), который будет определять, есть ли какие либо блюда в заказе.
+Подсказка: используйте одноименный метод
 
-4. Перепишите метод toString в классе Order. Пусть он возвращает пустую строку, если нет блюд в заказе, иначе
-вывод должен быть аналогичный примеру в порядке добавления блюд. Используйте ConsoleHelper.
-Пример:
-Your order: [Juice, Fish] of Tablet{number=5}
-
+4. Запустим приложение и введем 'fff', 'Soup' и 'exit'. В итоге наш заказ - Your order: [Soup], а 'fff' проигнорировано.
+Давай уведомим пользователя, что блюда 'fff' нет. Выведем аналогичную фразу
+fff is not detected
  */

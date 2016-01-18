@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /* Составить цепочку слов
 В методе main считайте с консоли имя файла, который содержит слова, разделенные пробелом.
@@ -24,52 +24,90 @@ import java.util.TreeSet;
 Амстердам Мельбурн Нью-Йорк Киев Вена
 */
 public class Solution {
-    static Set<String> set = new TreeSet<>();
-    static Set<String> setAdded = new HashSet<>();
-    static StringBuilder builder = null;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String fileName = reader.readLine();
-//        String fileName = "C:\\Users\\Santer\\Desktop\\Development\\JavaRush\\JavaRushHomeWork\\tempJRfiles\\temp.txt";
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+    public static void main(String[] args) {
+        try {
+            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+            String fileName = console.readLine();
+            BufferedReader fReader = new BufferedReader(new FileReader(fileName));
+            List<String> wordsList = new ArrayList<>();
+            while (fReader.ready()) {
+                String[] splitted = fReader.readLine().split(" ");
+                wordsList.addAll(Arrays.asList(splitted));
+            }
+            fReader.close();
 
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            getLine(line.split(" "));
+            StringBuilder result = getLine(wordsList.toArray(new String[wordsList.size()]));
+            System.out.println(result.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        reader.close();
-        bufferedReader.close();
-
-        //...
-        StringBuilder result = getLine();
-        System.out.println(result.toString());
     }
 
     public static StringBuilder getLine(String... words) {
-        if (builder == null) {
-            builder = new StringBuilder();
-        }
-        for (String word : words) {
-            set.add(word);
+        // src/test/resources/level22/lesson09/task03/t5.txt
+        StringBuilder sb = new StringBuilder();
+        if (words == null || words.length == 0) {
+            return sb;
         }
 
-        for (String s : set) {
-            if (builder.length() == 0) {
-                builder.append(s);
-                setAdded.add(s);
-            } else {
-                for (String s1 : set) {
-                    String temp = new String(new StringBuilder(builder).reverse());
-                    temp = temp.substring(0, 1);
-                    if (!setAdded.contains(s1) && temp.equalsIgnoreCase(s1.substring(0, 1))) {
-                        builder.append(" " + s1);
-                        setAdded.add(s1);
+        ArrayList<String> originalWordsList = new ArrayList<>(Arrays.asList(words));
+        ArrayList<String> result = null;
+
+        ArrayList<String> wordsList1 = (ArrayList) originalWordsList.clone();
+        boolean foundFullChain = false;
+        int rebuildCount = 0;
+        while (rebuildCount < originalWordsList.size()) {
+            int firstWordIdx = 0;
+            while (!foundFullChain && firstWordIdx < originalWordsList.size()) {
+                ArrayList<String> wordsList2 = (ArrayList) wordsList1.clone();
+                result = new ArrayList<>();
+
+                String currentWord = wordsList2.get(firstWordIdx);
+                wordsList2.remove(firstWordIdx);
+                result.add(currentWord);
+
+                String lastChar = currentWord.substring(currentWord.length() - 1);
+                String firstChar;
+                boolean foundNext = true;
+                while (wordsList2.size() > 0 && foundNext) {
+                    foundNext = false;
+                    for (int i = 0; i < wordsList2.size(); i++) {
+                        currentWord = wordsList2.get(i);
+                        firstChar = currentWord.substring(0, 1);
+                        if (firstChar.equalsIgnoreCase(lastChar)) {
+                            result.add(currentWord);
+                            lastChar = currentWord.substring(currentWord.length() - 1);
+                            wordsList2.remove(i);
+                            foundNext = true;
+                            break;
+                        }
                     }
                 }
+                firstWordIdx++;
+                if (result.size() == originalWordsList.size()) {
+                    foundFullChain = true;
+                    break;
+                }
             }
+
+            if (result.size() == originalWordsList.size()) {
+                break;
+            }
+
+            rebuildCount++;
+            wordsList1.add(wordsList1.get(0));
+            wordsList1.remove(0);
         }
 
-        return builder;
+        if (result != null) {
+            for (String word : result) {
+                sb.append(word).append(" ");
+            }
+            if (sb.length() > 0) {
+                sb.replace(sb.length() - 1, sb.length(), "");
+            }
+        }
+        return sb;
     }
 }

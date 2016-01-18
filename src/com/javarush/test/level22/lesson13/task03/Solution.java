@@ -26,37 +26,11 @@ package com.javarush.test.level22.lesson13.task03;
 public class Solution {
 
     public static boolean checkTelNumber(String telNumber) {
+        if ((telNumber.matches("^[\\+]([^\\d]*\\d[^\\d]*){12}]?") || telNumber.matches("(^\\(?\\d)+([\\(,\\),\\-]?\\d{1}[\\(,\\),\\-]?){8}\\d$"))
+                && telNumber.matches("^(\\+)?(\\d)*(\\(\\d{3}\\))?(\\d+-?\\d+-?)?\\d+$")) {
+            return true;
+        }
 
-        return (telNumber.matches("^\\+(\\d[\\-\\(\\)]?){11}\\d$") || telNumber.matches("^[\\(\\d]-?(\\d[\\-\\)]?){8}\\d$"))
-                && telNumber.matches("^(\\+)?(\\d)*(\\(\\d{3}\\))?(\\d+-?\\d+-?)?\\d+$");
-    }
-
-    public static boolean testReg(String telNumber) {
-
-//        return stringForTest.matches("^\\+{1}[0-9\\-]{12,14}") || stringForTest.matches("^\\d{1}[0-9\\-]{9,}")
-//                || stringForTest.matches("^\\({1}\\d{3}\\){1}(\\d[\\-]){7,}")
-//                && stringForTest.matches(".*\\d$") && stringForTest.matches(".*\\-?\\d{1,}\\-?");
-        return (telNumber.matches("^\\+(\\d[\\-\\(\\)]?){11}\\d$") || telNumber.matches("^[\\(\\d]-?(\\d[\\-\\)]?){8}\\d$"))
-                && telNumber.matches("^(\\+)?(\\d)*(\\(\\d{3}\\))?(\\d+-?\\d+-?)?\\d+$");
-    }
-
-    public static void main(String[] args) {
-//        System.out.println(checkTelNumber("+380501234567"));
-//        System.out.println(checkTelNumber("+38(050)1234567"));
-//        System.out.println(checkTelNumber("+38050123-45-67"));
-//        System.out.println(checkTelNumber("050123-4567"));
-//
-//        String temp = "0501234567";
-//        System.out.println(temp + " " + checkTelNumber(temp));
-//        String temp2 = "(0501234567";
-//        System.out.println(temp2 + " " + checkTelNumber(temp2));
-
-
-        System.out.println("+380501234567 " + testReg("+380501234567"));
-        System.out.println("+38(050)1234567 " + testReg("+38(050)1234567"));
-        System.out.println("+38050123-45-67 " + testReg("+38050123-45-67"));
-        System.out.println("050123-4567 " + testReg("050123-4567"));
-        System.out.println("(050)1-234567 " + testReg("(050)1-234567"));
-
+        return false;
     }
 }

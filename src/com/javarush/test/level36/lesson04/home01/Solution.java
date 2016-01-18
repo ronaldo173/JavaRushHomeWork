@@ -9,13 +9,8 @@ package com.javarush.test.level36.lesson04.home01;
 */
 public class Solution {
     public static void main(String[] args) {
-        Service service = new Service();
-        Model model = new Model(service);
-
-        Controller controller = new Controller(model);
-        View view = new View(controller);
-        view.fireEventShowData();
-
+//        new Solution().fireEventShowData();
+        new View().fireEventShowData();
     }
 
 
