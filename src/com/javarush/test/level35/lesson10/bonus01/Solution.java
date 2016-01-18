@@ -1,12 +1,5 @@
 package com.javarush.test.level35.lesson10.bonus01;
 
-import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /* ClassLoader - что это такое?
@@ -21,41 +14,11 @@ import java.util.Set;
 */
 public class Solution {
     public static void main(String[] args) {
-//        Set<? extends Animal> allAnimals = getAllAnimals("C://pathToClasses/");
-        Set<? extends Animal> allAnimals = getAllAnimals("C:\\Users\\Santer\\Desktop\\Development\\JavaRush\\JavaRushHomeWork\\out\\production\\JavaRushHomeWork\\com\\javarush\\test\\level35\\lesson10\\bonus01");
+        Set<? extends Animal> allAnimals = getAllAnimals("C://pathToClasses/");
         System.out.println(allAnimals);
     }
 
     public static Set<? extends Animal> getAllAnimals(String pathToAnimals) {
-        if (!pathToAnimals.endsWith("/")) {
-            pathToAnimals += "/";
-        }
-
-        List<File> fileList = new ArrayList<>();
-        for (File file : Paths.get(pathToAnimals).toFile().listFiles()) {
-            if (!file.isDirectory()) {
-                fileList.add(file);
-            }
-        }
-
-
-        try {
-
-            URL url = Paths.get(pathToAnimals).toFile().toURL();
-            URL[] urls = new URL[]{url};
-
-            File newClassesDir = Paths.get(pathToAnimals + ".com.MyClasses").toFile();
-            if (!newClassesDir.exists()) {
-                newClassesDir.mkdirs();
-            }
-            ClassLoader classLoader = new URLClassLoader(urls);
-            Class cl = classLoader.loadClass(".com.MyClasses");
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-
-
-        Set<? extends Animal> set = new HashSet<>();
-        return set;
+        return null;
     }
 }
