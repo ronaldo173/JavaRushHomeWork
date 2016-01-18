@@ -32,10 +32,20 @@ public class Advertisement {
     public long getAmountPerOneDisplaying() {
         return amountPerOneDisplaying;
     }
+
+    public void revalidate() {
+        if (hits <= 0) {
+            throw new UnsupportedOperationException();
+        }
+        hits--;
+    }
 }
 /*
-1. В классе Advertisement создайте поле long amountPerOneDisplaying, которое инициализируйте в конструкторе.
-Оно должно равняться стоимости одного показа рекламного объявления в копейках.
+Используйте методы из класса Advertisement.
+2.5. В классе Advertisement создайте метод void revalidate(). Этот метод должен:
+2.5.1. кидать UnsupportedOperationException, если количество показов не положительное число
+2.5.2. уменьшать количество показов
+2.6. Для каждого показанного рекламного ролика пересчитать его данные вызвав метод revalidate() у объекта класса Advertisement.
 
-2. В классе Advertisement создайте геттеры для полей name, duration и amountPerOneDisplaying
+
  */

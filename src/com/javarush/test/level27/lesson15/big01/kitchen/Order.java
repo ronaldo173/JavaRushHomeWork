@@ -13,13 +13,11 @@ public class Order {
     private Tablet tablet;
     private List<Dish> dishes;
 
-    public Order(Tablet tablet) {
-        try {
+    public Order(Tablet tablet) throws IOException {
+
             this.tablet = tablet;
             this.dishes = ConsoleHelper.getAllDishesForOrder();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
 

@@ -3,6 +3,7 @@ package com.javarush.test.level27.lesson15.big01;
 import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 
+import java.io.IOException;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,16 +20,29 @@ public class Tablet extends Observable {
     }
 
     public void createOrder() {
+        Order order = null;
         try {
-            Order order = new Order(this);
-            ConsoleHelper.writeMessage(order.toString());
-            setChanged();
-            notifyObservers(order);
-            new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();///XZ
-        } catch (Exception e) {
+            order = new Order(this);
+            if (!order.isEmpty()) {
+                ConsoleHelper.writeMessage(order.toString());
+                setChanged();
+                notifyObservers(order);
+            }
+
+            try {
+                new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();
+            } catch (RuntimeException e) {
+                logger.log(Level.INFO, "No video is available for the order " + order);
+            }
+        } catch (IOException e) {
             logger.log(Level.SEVERE, "Console is unavailable.");
         }
     }
+    /*
+    2.3. Если нет рекламных видео, которые можно показать посетителю, то бросить NoVideoAvailableException,
+которое перехватить в оптимальном месте (подумать, где это место) и с уровнем Level.INFO логировать фразу
+"No video is available for the order " + order
+     */
 
     public int getNumber() {
         return number;
