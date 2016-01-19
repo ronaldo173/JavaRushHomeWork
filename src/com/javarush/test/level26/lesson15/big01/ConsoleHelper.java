@@ -1,8 +1,12 @@
 package com.javarush.test.level26.lesson15.big01;
 
+import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Alex on 18.01.2016.
@@ -14,17 +18,29 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public static String readString() {
+    /**
+     * Это всё хорошо, но бывают случаи, когда срочно нужно прервать операцию, например, если пользователь ошибся с выбором операции.
+     * Для этого у нас есть InterruptOperationException.
+     * 2.Реализуйте следующую логику:
+     * 2.1. Если пользователь в любом месте ввел текст 'EXIT' любым регистром, то выбросить InterruptOperationException.
+     * 2.2. Найдите единственное место, куда нужно вставить эту логику. Реализуйте функционал в этом единственном методе.
+     *
+     * @return
+     */
+    public static String readString() throws InterruptOperationException {
         String result = null;
         try {
             result = reader.readLine();
+            if ("exit".equalsIgnoreCase(result)) {
+                throw new InterruptOperationException();
+            }
         } catch (IOException e) {
             //NONE
         }
         return result;
     }
 
-    public static String askCurrencyCode() {
+    public static String askCurrencyCode() throws InterruptOperationException {
         writeMessage("hi, enter askCurrencyCode, 3 symbols");
         String result = readString();
 
@@ -39,7 +55,7 @@ public class ConsoleHelper {
         return result.toUpperCase();
     }
 
-    public static String[] getValidTwoDigits(String currencyCode) {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
         writeMessage("hi, enter 2 digits, >0");
 
         String[] result = readString().split(" ");
@@ -65,20 +81,27 @@ public class ConsoleHelper {
         return result;
     }
 
-    public static Operation askOperation() {
+    public static Operation askOperation() throws InterruptOperationException {
         Operation operation = null;
         writeMessage("choose operation :1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
 
         while (true) {
-            try {
-                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(readString()));
+            String opString = readString();
+            if (checkValue1234(opString)) {
+                operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(opString));
                 break;
-            } catch (Exception e) {
-                writeMessage("error, try again");
-                writeMessage("choose operation : 1 INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
+            } else {
+                ConsoleHelper.writeMessage("error in data(1-4) try again");
+                writeMessage("choose operation :1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
             }
         }
         return operation;
+    }
+
+    private static boolean checkValue1234(String opString) {
+        Pattern p = Pattern.compile("^[1-4]$");
+        Matcher m = p.matcher(opString);
+        return m.matches();
     }
 }
 /**
