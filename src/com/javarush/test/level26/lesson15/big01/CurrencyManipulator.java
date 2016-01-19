@@ -38,8 +38,15 @@ public class CurrencyManipulator {
         }
         return sum;
     }
+
+    public boolean hasMoney() {
+        return denominations.isEmpty() ? false : true;
+    }
 }
 /*
-4. В классе CurrencyManipulator создайте метод void addAmount(int denomination, int count),
-который добавит введенные номинал и количество банкнот
+3. Запустим прогу и сразу первой операцией попросим INFO. Ничего не вывело? Непорядок.
+Добавьте в манипулятор метод boolean hasMoney(), который будет показывать, добавлены ли какие-то банкноты или нет.
+
+4. В InfoCommand используйте метод п.3. и выведите фразу "No money available.", если нет денег в банкомате.
+
  */

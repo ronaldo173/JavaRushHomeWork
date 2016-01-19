@@ -67,7 +67,7 @@ public class ConsoleHelper {
 
     public static Operation askOperation() {
         Operation operation = null;
-        writeMessage("choose operation : INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
+        writeMessage("choose operation :1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
 
         while (true) {
             try {
@@ -75,7 +75,7 @@ public class ConsoleHelper {
                 break;
             } catch (Exception e) {
                 writeMessage("error, try again");
-                writeMessage("choose operation : INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
+                writeMessage("choose operation : 1 INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
             }
         }
         return operation;
