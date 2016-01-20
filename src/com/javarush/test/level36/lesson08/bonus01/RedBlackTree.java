@@ -17,7 +17,7 @@ public class RedBlackTree {
     public RedBlackTree() {
         header = new Node(Integer.MIN_VALUE);
         header.left = EMPTY;
-        header.right = EMPTY;
+        header.right = header;
     }
 
     public boolean isEmpty() {
@@ -118,10 +118,10 @@ public class RedBlackTree {
         }
 
         public Node(int element, Node left, Node right) {
-            this.left = left;
-            this.right = right;
+            this.left = EMPTY;
+            this.right = EMPTY;
             this.element = element;
-            this.color = Color.BLACK;
+            this.color = Color.RED;
         }
     }
 }

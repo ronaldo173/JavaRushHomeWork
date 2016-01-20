@@ -9,5 +9,7 @@ package com.javarush.test.level36.lesson08.bonus01;
 */
 public class Solution {
     public static void main(String[] args) {
+        RedBlackTree redBlackTree = new RedBlackTree();
+        System.out.println(redBlackTree);
     }
 }

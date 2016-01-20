@@ -3,6 +3,7 @@ package com.javarush.test.level28.lesson15.big01.model;
 import com.javarush.test.level28.lesson15.big01.view.View;
 import com.javarush.test.level28.lesson15.big01.vo.Vacancy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class Model {
 
     public Model(View view, Provider[] providers) {
         if (view == null || providers == null || providers.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Illegal arguments");
         }
         this.view = view;
         this.providers = providers;
@@ -22,10 +23,12 @@ public class Model {
     }
 
     public void selectCity(String city) {
+        List<Vacancy> javaVacancies = new ArrayList<>();
+
         for (Provider provider : providers) {
-            List<Vacancy> javaVacancies = provider.getJavaVacancies(city);
-            view.update(javaVacancies);
+            javaVacancies.addAll(provider.getJavaVacancies(city));
         }
+        view.update(javaVacancies);
     }
 }
 /*
