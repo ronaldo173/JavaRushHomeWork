@@ -7,6 +7,9 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
  * Created by Alex on 18.01.2016.
  */
 public class CashMachine {
+    public static String path = "com.javarush.test.level26.lesson15.big01.resources.";
+
+
     public static void main(String[] args) {
 
         Operation operation = null;

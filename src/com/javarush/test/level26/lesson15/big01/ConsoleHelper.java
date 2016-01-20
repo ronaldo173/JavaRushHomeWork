@@ -5,6 +5,7 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,26 +13,19 @@ import java.util.regex.Pattern;
  * Created by Alex on 18.01.2016.
  */
 public class ConsoleHelper {
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.path + "common_en");
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void writeMessage(String message) {
         System.out.println(message);
     }
 
-    /**
-     * Это всё хорошо, но бывают случаи, когда срочно нужно прервать операцию, например, если пользователь ошибся с выбором операции.
-     * Для этого у нас есть InterruptOperationException.
-     * 2.Реализуйте следующую логику:
-     * 2.1. Если пользователь в любом месте ввел текст 'EXIT' любым регистром, то выбросить InterruptOperationException.
-     * 2.2. Найдите единственное место, куда нужно вставить эту логику. Реализуйте функционал в этом единственном методе.
-     *
-     * @return
-     */
+
     public static String readString() throws InterruptOperationException {
         String result = null;
         try {
             result = reader.readLine();
-            if ("exit".equalsIgnoreCase(result)) {
+            if (res.getString("operation.EXIT").equalsIgnoreCase(result)) {
                 throw new InterruptOperationException();
             }
         } catch (IOException e) {
@@ -41,22 +35,22 @@ public class ConsoleHelper {
     }
 
     public static String askCurrencyCode() throws InterruptOperationException {
-        writeMessage("hi, enter askCurrencyCode, 3 symbols");
+        writeMessage(res.getString("choose.currency.code"));
         String result = readString();
 
         while (true) {
             if (result.length() == 3) {
                 break;
             }
-            writeMessage("please, try again(3letter)");
-            writeMessage("hi, enter askCurrencyCode, 3 symbols");
+            writeMessage(res.getString("invalid.data"));
+            writeMessage(res.getString("choose.currency.code"));
             result = readString();
         }
         return result.toUpperCase();
     }
 
     public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
-        writeMessage("hi, enter 2 digits, >0");
+        writeMessage(res.getString("choose.denomination.and.count.format"));
 
         String[] result = readString().split(" ");
 
@@ -74,15 +68,22 @@ public class ConsoleHelper {
             } catch (Exception e) {//NONE}
             }
 
-            writeMessage("please try again");
-            writeMessage("hi, enter 2 digits, >0");
+            writeMessage(res.getString("invalid.data"));
+            writeMessage(res.getString("choose.denomination.and.count.format"));
             result = readString().split(" ");
         }
         return result;
     }
+    /*
+
+before=Depositing...
+success.format=%d %s was deposited successfully
+invalid.data=Please specify valid data.
+ */
 
     public static Operation askOperation() throws InterruptOperationException {
         Operation operation = null;
+        writeMessage(res.getString("choose.operation"));
         writeMessage("choose operation :1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
 
         while (true) {
@@ -91,7 +92,7 @@ public class ConsoleHelper {
                 operation = Operation.getAllowableOperationByOrdinal(Integer.parseInt(opString));
                 break;
             } else {
-                ConsoleHelper.writeMessage("error in data(1-4) try again");
+                writeMessage(res.getString("invalid.data"));
                 writeMessage("choose operation :1 - INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;");
             }
         }
@@ -104,10 +105,14 @@ public class ConsoleHelper {
         return m.matches();
     }
 }
-/**
- * 2. В классе ConsoleHelper реализуйте логику статического метода Operation askOperation()
- * Спросить у пользователя операцию.
- * Если пользователь вводит 1, то выбирается команда INFO, 2 - DEPOSIT, 3 - WITHDRAW, 4 - EXIT;
- * Используйте метод, описанный в п.1.
- * Обработай исключение - запроси данные об операции повторно.
- **/
+/*
+the.end=Terminated. Thank you for visiting JavaRush cash machine. Good luck.
+choose.operation=Please choose an operation desired or type 'EXIT' for exiting
+operation.INFO=INFO
+operation.DEPOSIT=DEPOSIT
+operation.WITHDRAW=WITHDRAW
+operation.EXIT=EXIT
++invalid.data=Please specify valid data.
++choose.currency.code=Please choose a currency code, for example USD
++choose.denomination.and.count.format=Please specify integer denomination and integer count. For example '10 3' means 30 %s
+ */
